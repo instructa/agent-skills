@@ -63,6 +63,8 @@
     ],
     "aliases": {
       "app-spec-packager": "project-spec-packager",
+      "find-duplicate-ownership": "duplicate-ownership-audit",
+      "consolidate-test-suites": "test-ownership",
       "stage-review": "ship-gate",
       "no-mistakes": "ship-gate"
     },
