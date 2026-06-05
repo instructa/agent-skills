@@ -109,6 +109,12 @@ ledger event when durable state changes
 
 ## PlanDB / ledger events
 
+Primary event emitted when the ship gate completes:
+
+```txt
+ship_gate.completed
+```
+
 Possible event types:
 
 ```txt

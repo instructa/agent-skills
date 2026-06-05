@@ -13,7 +13,9 @@
     "install-verification",
     "course-checkpoint",
     "learning-path-handoff",
-    "plandb-setup"
+    "plandb-setup",
+    "gh-repo-bootstrap",
+    "homebrew-publish"
   ],
   "x-agentrig": {
     "profile": "kit-entry",
@@ -37,6 +39,16 @@
       "project-plugin-selector",
       "course-checkpoint"
     ],
+    "supportSkills": [
+      "gh-repo-bootstrap",
+      "homebrew-publish"
+    ],
+    "source": {
+      "skillRelocations": {
+        "gh-repo-bootstrap": "Relocated from standalone skill into instructa.base support skills for explicit repository bootstrap flows.",
+        "homebrew-publish": "Relocated from invalid release provider plugin into instructa.base support skills for explicit project release publishing flows."
+      }
+    },
     "providerTargets": [
       "codex",
       "claude-code",

@@ -7,6 +7,7 @@ Project workflow layer for APIs, backend services, workers and integration servi
 ## Included Skills
 
 - `api-project-workflow`
+- `go-local-health` (support skill for Go API/runtime health checks)
 
 ## Required Capabilities
 
@@ -23,4 +24,4 @@ Project workflow layer for APIs, backend services, workers and integration servi
 
 ## Workflow Boundary
 
-Use this plugin for headless APIs, backend workers, webhook handlers and integration services. Use `instructa.mcp` for MCP protocol/tool-server work and `instructa.saas` when the API is only one slice of a user-facing product lifecycle.
+Use this plugin for headless APIs, backend workers, webhook handlers and integration services. `go-local-health` lives here as API/runtime-context support for Go services, not as a core workflow surface. Use `instructa.mcp` for MCP protocol/tool-server work and `instructa.saas` when the API is only one slice of a user-facing product lifecycle.

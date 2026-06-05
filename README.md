@@ -33,10 +33,10 @@ npx skills add instructa/agent-skills --skill root-cause-finder --agent codex
 npx skills add instructa/agent-skills --skill search-context --agent codex
 ```
 
-Install one standalone skill:
+Install one plugin-owned or standalone skill:
 
 ```bash
-npx skills add instructa/agent-skills --skill app-spec-packager --agent codex
+npx skills add instructa/agent-skills --skill project-spec-packager --agent codex
 npx skills add instructa/agent-skills --skill debug-lldb --agent codex
 npx skills add instructa/agent-skills --skill electron-live-test --agent codex
 npx skills add instructa/agent-skills --skill gh-repo-bootstrap --agent codex
@@ -67,10 +67,10 @@ npx skills add instructa/agent-skills --skill root-cause-finder --agent claude-c
 npx skills add instructa/agent-skills --skill search-context --agent claude-code
 ```
 
-Install one standalone skill:
+Install one plugin-owned or standalone skill:
 
 ```bash
-npx skills add instructa/agent-skills --skill app-spec-packager --agent claude-code
+npx skills add instructa/agent-skills --skill project-spec-packager --agent claude-code
 npx skills add instructa/agent-skills --skill debug-lldb --agent claude-code
 npx skills add instructa/agent-skills --skill electron-live-test --agent claude-code
 npx skills add instructa/agent-skills --skill gh-repo-bootstrap --agent claude-code
@@ -101,10 +101,10 @@ npx skills add instructa/agent-skills --skill root-cause-finder --agent cursor
 npx skills add instructa/agent-skills --skill search-context --agent cursor
 ```
 
-Install one standalone skill:
+Install one plugin-owned or standalone skill:
 
 ```bash
-npx skills add instructa/agent-skills --skill app-spec-packager --agent cursor
+npx skills add instructa/agent-skills --skill project-spec-packager --agent cursor
 npx skills add instructa/agent-skills --skill debug-lldb --agent cursor
 npx skills add instructa/agent-skills --skill electron-live-test --agent cursor
 npx skills add instructa/agent-skills --skill gh-repo-bootstrap --agent cursor
@@ -144,21 +144,21 @@ Testing:
 
 - `consolidate-test-suites`: place bug-fix coverage in one owning test layer.
 
-### Standalone Skills
+### Plugin-Owned And Standalone Skills
 
-These skills are kept as separate artifacts because they are useful independently. Each skill folder also has its own `README.md`.
+These skills live in the top-level `skills/` folder for installability. Plugin manifests declare their canonical ownership; relocated support skills are not part of `instructa.core`.
 
-- `app-spec-packager`: create production-ready app specification packages for coding agents.
-- `debug-lldb`: capture and analyze LLDB/GDB backtraces for hangs and high-CPU loops.
-- `electron-live-test`: live-test headed Electron apps with native-devtools-mcp and CDP.
-- `gh-repo-bootstrap`: create a GitHub repo and bootstrap a local project.
+- `project-spec-packager`: create the Instructa project spec package; alias: `app-spec-packager`.
+- `debug-lldb`: support skill owned by `third-party.native-debug`.
+- `electron-live-test`: support skill owned by `instructa.desktop`.
+- `gh-repo-bootstrap`: support skill owned by `instructa.base`.
 - `git-safe-workflow`: inspect, stage, commit, and push safely when explicitly requested.
 - `gitwhat`: print a compact git workspace snapshot.
-- `go-local-health`: run local Go test, coverage, and lint health checks.
-- `homebrew-publish`: prepare Homebrew tap formulae for CLI/TUI releases.
+- `go-local-health`: support skill owned by `instructa.api`.
+- `homebrew-publish`: support skill owned by `instructa.base`.
 - `no-mistakes`: use the no-mistakes gated push workflow.
 - `package-security-check`: run a reusable JavaScript supply-chain security baseline.
-- `redesign-my-landingpage`: build and critique shadcn/Vite/Iconify landing pages.
+- `redesign-my-landingpage`: support skill owned by `instructa.website`.
 - `secleak-check`: run BetterLeaks/Trivy scans and add secret-leak guardrails.
 - `shellck`: run shellcheck over shell scripts.
 - `stage-review`: commit a finished feature locally, then run it through no-mistakes.
@@ -172,7 +172,8 @@ plugins/
     README.md
 
 skills/
-  app-spec-packager/
+  project-spec-packager/       # public in instructa.core; alias: app-spec-packager
+  plan-ledger/                 # public in instructa.core
   architecture-ownership/    # bundled in regenrek.agentic-engineer-core
   consolidate-test-suites/   # bundled in regenrek.agentic-engineer-core
   debug-lldb/

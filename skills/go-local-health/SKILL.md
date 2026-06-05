@@ -5,6 +5,10 @@ description: Run local Go health checks (tests, coverage, lint) in Go repositori
 
 # Go Local Health
 
+## Ownership / Provenance
+
+This skill is owned by `instructa.api` as support for Go API/runtime health checks. It is not part of `instructa.core`.
+
 ## Overview
 
 Provide a consistent, repeatable local workflow for Go test, coverage, and lint checks.

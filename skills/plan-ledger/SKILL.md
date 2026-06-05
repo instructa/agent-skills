@@ -109,6 +109,45 @@ ledger event when durable state changes
 
 ## PlanDB / ledger events
 
+Event shape, matching `agentrig-web/public/schema/plan-ledger-event.schema.json`:
+
+```txt
+id
+type
+sourceSkill
+title
+summary
+status
+links
+evidence
+createdAt
+supersedes
+```
+
+Required by the schema:
+
+```txt
+type
+sourceSkill
+title
+summary
+status
+createdAt
+```
+
+Allowed statuses:
+
+```txt
+proposed
+accepted
+rejected
+superseded
+completed
+blocked
+```
+
+Use `links` for related owners, files, ADRs, tasks, PRs or receipts. Use `evidence.commands`, `evidence.files` and `evidence.urls` when available; keep any additional evidence fields durable and reviewable. Use `supersedes` as an array of event ids when replacing an earlier durable decision.
+
 Possible event types:
 
 ```txt
@@ -136,6 +175,8 @@ docs/plan-ledger/events.jsonl
 docs/adrs/*.md
 docs/specs/*.md
 ```
+
+When the `plan.ledger` provider is installed, write or import the same event payload into PlanDB. When it is unavailable, append JSON Lines to `docs/plan-ledger/events.jsonl` and keep linked ADR/spec artifacts in the fallback docs paths above.
 
 ## Optional capabilities
 

@@ -5,6 +5,10 @@ description: Live-test any Electron desktop app with native-devtools-mcp, Chrome
 
 # Electron Live Test
 
+## Ownership / Provenance
+
+This skill is owned by `instructa.desktop` as support for desktop/browser verification. It is not part of `instructa.core`.
+
 ## When To Use
 
 Use this skill for live, headed testing of a running Electron desktop app. It is for interactive verification while developing, not for replacing automated smoke tests.

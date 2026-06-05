@@ -108,6 +108,12 @@ ledger event when durable state changes
 
 ## PlanDB / ledger events
 
+Primary event emitted when ownership changes:
+
+```txt
+ownership.changed
+```
+
 Possible event types:
 
 ```txt

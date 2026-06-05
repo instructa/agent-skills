@@ -34,7 +34,7 @@ Turn product intent into a small, durable project package that prevents implemen
 
 ## Output contract
 
-This skill must produce:
+This skill must produce exactly these files, for website, webapp, SaaS, API, desktop and MCP projects:
 
 ```txt
 docs/specs/project-spec.md
@@ -42,8 +42,6 @@ docs/specs/proof-oracle.md
 docs/adrs/ADR-candidates.md
 docs/plan-ledger/seed.json
 docs/handoffs/agent-handoff.md
-proof/receipt
-ledger event when durable state changes
 ```
 
 ## Workflow
@@ -116,6 +114,8 @@ ledger event when durable state changes
 - Record unresolved risks instead of implying certainty.
 
 ## PlanDB / ledger events
+
+Emit `project.spec.created` and `proof.oracle.created` through `docs/plan-ledger/seed.json`; include `adr.proposed` and `task.created` seed entries when the package includes ADR candidates or initial work units.
 
 Possible event types:
 

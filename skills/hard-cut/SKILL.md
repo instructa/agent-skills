@@ -108,6 +108,12 @@ ledger event when durable state changes
 
 ## PlanDB / ledger events
 
+Primary event emitted when the hard cut is executed:
+
+```txt
+hard_cut.executed
+```
+
 Possible event types:
 
 ```txt

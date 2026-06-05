@@ -10,6 +10,9 @@
     "native",
     "debug"
   ],
+  "skills": [
+    "debug-lldb"
+  ],
   "x-agentrig": {
     "displayName": "Native Debug Provider",
     "kind": "plugin",
@@ -22,8 +25,14 @@
     "source": {
       "upstreamOwner": "LLDB, GDB and platform debugger maintainers",
       "upstreamSource": "debug-lldb, LLDB, GDB and platform-native debugger tooling",
-      "wrapperOnly": true
+      "wrapperOnly": true,
+      "skillRelocations": {
+        "debug-lldb": "Relocated from standalone/core-adjacent skill into third-party.native-debug as the support workflow for native.debug."
+      }
     },
+    "supportSkills": [
+      "debug-lldb"
+    ],
     "providesCapabilities": {
       "native.debug": {
         "type": "tool",

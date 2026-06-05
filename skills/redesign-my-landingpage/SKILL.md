@@ -5,6 +5,10 @@ description: Build, critique, and iterate high-converting marketing or product l
 
 # Shadcn + Vite landing pages that convert (with Iconify)
 
+## Ownership / Provenance
+
+This skill is owned by `instructa.website` as support for landing-page and website conversion work. It is not part of `instructa.core`.
+
 ## Quick start
 
 1. Identify the single primary conversion action (the one CTA that matters).

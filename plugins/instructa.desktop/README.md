@@ -7,6 +7,7 @@ Project workflow layer for installable, local-first and native desktop applicati
 ## Included Skills
 
 - `desktop-project-workflow`
+- `electron-live-test` (support skill for desktop/browser verification)
 
 ## Required Capabilities
 
@@ -16,10 +17,11 @@ Project workflow layer for installable, local-first and native desktop applicati
 
 ## Optional Capabilities
 
+- `browser.verify`
 - `native.debug`
 - `secrets.scan`
 - `repo.remote`
 
 ## Workflow Boundary
 
-Use this plugin for apps that install locally, bridge OS resources, persist local state or require desktop runtime proof. Native debugging remains an optional provider capability, not a desktop project capability definition.
+Use this plugin for apps that install locally, bridge OS resources, persist local state or require desktop runtime proof. `electron-live-test` lives here as desktop/browser verification support. Native debugging remains an optional provider capability, not a desktop project capability definition.

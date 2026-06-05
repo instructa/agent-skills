@@ -11,7 +11,8 @@
     "api"
   ],
   "skills": [
-    "api-project-workflow"
+    "api-project-workflow",
+    "go-local-health"
   ],
   "x-agentrig": {
     "displayName": "Instructa API Project",
@@ -27,6 +28,9 @@
     ],
     "publicSkills": [
       "api-project-workflow"
+    ],
+    "supportSkills": [
+      "go-local-health"
     ],
     "requiredCapabilities": {
       "plan.ledger": {
@@ -55,6 +59,11 @@
       "observability.logs",
       "deploy.preview"
     ],
+    "source": {
+      "skillRelocations": {
+        "go-local-health": "Relocated from standalone skill into instructa.api support skills as an API/runtime-context Go health workflow."
+      }
+    },
     "providerTargets": [
       "codex",
       "claude-code",

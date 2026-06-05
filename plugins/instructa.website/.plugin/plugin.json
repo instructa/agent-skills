@@ -11,7 +11,8 @@
     "website"
   ],
   "skills": [
-    "website-project-workflow"
+    "website-project-workflow",
+    "redesign-my-landingpage"
   ],
   "x-agentrig": {
     "displayName": "Instructa Website Project",
@@ -27,6 +28,9 @@
     ],
     "publicSkills": [
       "website-project-workflow"
+    ],
+    "supportSkills": [
+      "redesign-my-landingpage"
     ],
     "requiredCapabilities": {
       "docs.latest": {
@@ -44,6 +48,11 @@
       "deploy.preview",
       "repo.remote"
     ],
+    "source": {
+      "skillRelocations": {
+        "redesign-my-landingpage": "Relocated from standalone skill into instructa.website support skills for landing-page and website conversion work."
+      }
+    },
     "providerTargets": [
       "codex",
       "claude-code",

@@ -5,6 +5,10 @@ description: Create a new GitHub repository with the gh CLI and bootstrap a loca
 
 # GH Repo Bootstrap
 
+## Ownership / Provenance
+
+This skill is owned by `instructa.base` as a setup helper for explicit repository bootstrap flows. It is not part of `instructa.core`.
+
 ## Overview
 Create a GitHub repo in the authenticated account and initialize a matching local project under `~/projects/<name>` with a git repo, initial commit, remote, and upstream push using the bundled script.
 

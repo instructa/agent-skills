@@ -109,6 +109,12 @@ ledger event when durable state changes
 
 ## PlanDB / ledger events
 
+Primary event emitted when the finding is durable:
+
+```txt
+root_cause.verified
+```
+
 Possible event types:
 
 ```txt

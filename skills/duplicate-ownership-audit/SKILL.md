@@ -110,6 +110,12 @@ ledger event when durable state changes
 
 ## PlanDB / ledger events
 
+Primary event emitted when a duplicate owner is detected:
+
+```txt
+duplicate.detected
+```
+
 Possible event types:
 
 ```txt

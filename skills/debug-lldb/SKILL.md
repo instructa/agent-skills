@@ -5,6 +5,10 @@ description: Capture and analyze thread backtraces with LLDB/GDB to debug hangs,
 
 # Debug Lldb
 
+## Ownership / Provenance
+
+This skill is owned by `third-party.native-debug` as support for the `native.debug` capability. It is not part of `instructa.core`.
+
 ## Overview
 
 Capture stack traces from a live process to explain stalls and freezes, then triage for deadlocks, blocking IPC, or tight loops. Prefer repeat sampling so the hang signature is obvious.

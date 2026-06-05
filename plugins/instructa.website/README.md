@@ -7,6 +7,7 @@ Project workflow layer for marketing, content, documentation, landing and blog s
 ## Included Skills
 
 - `website-project-workflow`
+- `redesign-my-landingpage` (support skill for landing-page and conversion work)
 
 ## Required Capabilities
 
@@ -20,4 +21,4 @@ Project workflow layer for marketing, content, documentation, landing and blog s
 
 ## Workflow Boundary
 
-Use this plugin for public-facing sites where content structure, conversion clarity, accessibility, performance and browser proof are the main risks. Use `instructa.webapp` or `instructa.saas` when the work becomes an interactive application or product lifecycle.
+Use this plugin for public-facing sites where content structure, conversion clarity, accessibility, performance and browser proof are the main risks. `redesign-my-landingpage` lives here because landing-page conversion work is website-specific, not reusable core. Use `instructa.webapp` or `instructa.saas` when the work becomes an interactive application or product lifecycle.

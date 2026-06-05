@@ -2,11 +2,15 @@
 
 Curated AgentRig wrapper for the `native.debug` capability.
 
-This plugin describes native debugging support for desktop/native workflows. It does not own LLDB, GDB, platform debugger behavior or the desktop product's debugging policy.
+This plugin describes native debugging support for desktop/native workflows. It owns the `debug-lldb` support workflow and does not own LLDB, GDB, platform debugger behavior or the desktop product's debugging policy.
 
 ## Capability
 
 - `native.debug` -> platform-native debugger tooling
+
+## Included Skills
+
+- `debug-lldb`
 
 ## Upstream
 

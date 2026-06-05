@@ -5,6 +5,10 @@ description: Publish CLIs/TUIs to Homebrew via a personal tap. Use when asked to
 
 # Homebrew Publish
 
+## Ownership / Provenance
+
+This skill is owned by `instructa.base` as a support workflow for explicit project release publishing. It is not a capability provider and is not part of `instructa.core`.
+
 ## Overview
 Create or update a Homebrew tap and formulae so users can install a project's CLI/TUI with `brew install OWNER/tap/<formula>`.
 

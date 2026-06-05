@@ -11,7 +11,8 @@
     "desktop"
   ],
   "skills": [
-    "desktop-project-workflow"
+    "desktop-project-workflow",
+    "electron-live-test"
   ],
   "x-agentrig": {
     "displayName": "Instructa Desktop Project",
@@ -27,6 +28,9 @@
     ],
     "publicSkills": [
       "desktop-project-workflow"
+    ],
+    "supportSkills": [
+      "electron-live-test"
     ],
     "requiredCapabilities": {
       "plan.ledger": {
@@ -46,10 +50,16 @@
       }
     },
     "optionalCapabilities": [
+      "browser.verify",
       "native.debug",
       "secrets.scan",
       "repo.remote"
     ],
+    "source": {
+      "skillRelocations": {
+        "electron-live-test": "Relocated from standalone skill into instructa.desktop support skills for desktop/browser verification."
+      }
+    },
     "providerTargets": [
       "codex",
       "claude-code",

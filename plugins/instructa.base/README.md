@@ -17,6 +17,8 @@ Skills:
 - `course-checkpoint`
 - `learning-path-handoff`
 - `plandb-setup`
+- `gh-repo-bootstrap` (support skill for explicit repository bootstrap flows)
+- `homebrew-publish` (support skill for explicit project release publishing flows)
 
 Public commands:
 
@@ -44,3 +46,7 @@ project-spec-packager
 ## Capability
 
 Requires `plan.ledger` through `third-party.plandb`, with `docs/plan-ledger/events.jsonl` as the documented fallback path.
+
+## Ownership Boundary
+
+`gh-repo-bootstrap` lives in Base as a setup helper. `homebrew-publish` lives in Base as a release publishing helper. Neither is a Core workflow skill, and both should only run when the user explicitly asks for that operation.

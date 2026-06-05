@@ -109,6 +109,12 @@ ledger event when durable state changes
 
 ## PlanDB / ledger events
 
+Primary event emitted when the review gate completes:
+
+```txt
+review.completed
+```
+
 Possible event types:
 
 ```txt
