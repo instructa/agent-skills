@@ -1,0 +1,46 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "instructa.base",
+  "version": "1.0.0",
+  "description": "Instructa Agentic Engineer Kit entry layer and course setup plugin.",
+  "license": "MIT",
+  "skills": [
+    "instructa-init",
+    "instructa-status",
+    "instructa-doctor-routing",
+    "kit-decision-tree",
+    "project-plugin-selector",
+    "install-verification",
+    "course-checkpoint",
+    "learning-path-handoff",
+    "plandb-setup"
+  ],
+  "x-agentrig": {
+    "profile": "kit-entry",
+    "listing": {
+      "category": "Instructa Kit"
+    },
+    "pluginDependencies": [
+      "agentrig/instructa.core@^1.0.0"
+    ],
+    "requiredCapabilities": {
+      "plan.ledger": {
+        "provider": "third-party.plandb",
+        "required": true,
+        "fallback": "docs/plan-ledger/events.jsonl"
+      }
+    },
+    "publicCommands": [
+      "instructa-init",
+      "instructa-status",
+      "instructa-doctor-routing",
+      "project-plugin-selector",
+      "course-checkpoint"
+    ],
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ]
+  }
+}

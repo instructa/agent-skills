@@ -1,0 +1,95 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "third-party.desktop-runtime",
+  "version": "1.0.0",
+  "description": "Curated provider manifest for the desktop.runtime capability.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "third-party",
+    "desktop",
+    "runtime"
+  ],
+  "x-agentrig": {
+    "displayName": "Desktop Runtime Provider",
+    "kind": "plugin",
+    "profile": "third-party",
+    "owner": "external",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Third-party Providers"
+    },
+    "source": {
+      "upstreamOwner": "Desktop runtime maintainers and the project under test",
+      "upstreamSource": "Electron, Tauri, native app commands or project-provided desktop run scripts",
+      "wrapperOnly": true
+    },
+    "providesCapabilities": {
+      "desktop.runtime": {
+        "type": "runtime",
+        "requiredByCore": false,
+        "riskLevel": "high",
+        "fallback": "Manual desktop app launch with logs, screenshots and project-specific reproduction notes."
+      }
+    },
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ],
+    "install": {
+      "method": "Use the desktop project's existing runtime command and dependencies; this provider records the capability contract.",
+      "commands": [
+        "agentrig doctor --capability desktop.runtime"
+      ],
+      "uninstall": [
+        "Remove this provider plugin from the AgentRig install set; uninstall runtime dependencies through the owning project if needed."
+      ]
+    },
+    "environment": {
+      "required": [],
+      "optional": [
+        "AGENTRIG_DESKTOP_COMMAND",
+        "DISPLAY",
+        "WAYLAND_DISPLAY"
+      ]
+    },
+    "permissions": {
+      "filesystem": [
+        "Project source tree",
+        "Desktop build artifacts",
+        "App logs and temporary runtime data"
+      ],
+      "network": [
+        "Local development servers or app endpoints declared by the project"
+      ],
+      "runsLocalCode": true,
+      "approval": "Human approval required before launching production-connected apps or commands that alter local user data."
+    },
+    "transport": {
+      "type": "local-runtime",
+      "notes": "Project-owned desktop runtime command; wrapper does not define the app framework."
+    },
+    "verification": {
+      "lastVerified": "2026-06-04",
+      "cadence": "30d",
+      "smokeTest": "verify/desktop-runtime-smoke.md"
+    },
+    "security": {
+      "requiresConsent": true,
+      "showsExactCommands": true,
+      "requiresEnvVars": [],
+      "notes": "Desktop runtimes execute local project code and may access OS resources. Use project-scoped commands and visible approval."
+    },
+    "replacementPolicy": {
+      "capabilities": [
+        "desktop.runtime"
+      ],
+      "replaceWithoutCourseChange": true
+    },
+    "risk": {
+      "level": "high",
+      "notes": "Launching desktop apps can execute local code, access user files or connect to external services."
+    }
+  }
+}

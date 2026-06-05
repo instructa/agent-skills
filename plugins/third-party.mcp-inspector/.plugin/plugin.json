@@ -1,0 +1,91 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "third-party.mcp-inspector",
+  "version": "1.0.0",
+  "description": "Curated provider manifest for the mcp.verify capability.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "third-party",
+    "mcp",
+    "inspector"
+  ],
+  "x-agentrig": {
+    "displayName": "MCP Inspector Provider",
+    "kind": "plugin",
+    "profile": "third-party",
+    "owner": "external",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Third-party Providers"
+    },
+    "source": {
+      "upstreamOwner": "Model Context Protocol",
+      "upstreamSource": "https://github.com/modelcontextprotocol/inspector",
+      "wrapperOnly": true
+    },
+    "providesCapabilities": {
+      "mcp.verify": {
+        "type": "tool",
+        "requiredByCore": false,
+        "riskLevel": "high",
+        "fallback": "Manual MCP server smoke test using client logs, tool descriptors and explicit test prompts."
+      }
+    },
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ],
+    "install": {
+      "method": "Install and run the upstream MCP Inspector for local MCP server verification.",
+      "commands": [
+        "agentrig doctor --capability mcp.verify"
+      ],
+      "uninstall": [
+        "Remove MCP Inspector configuration and any temporary test server credentials."
+      ]
+    },
+    "environment": {
+      "required": [],
+      "optional": []
+    },
+    "permissions": {
+      "filesystem": [
+        "MCP server files selected for inspection",
+        "Temporary inspector logs"
+      ],
+      "network": [
+        "Localhost inspector UI",
+        "Network endpoints exposed by the MCP server under test"
+      ],
+      "runsLocalCode": true,
+      "approval": "Human approval required before invoking MCP tools that mutate files, external systems or credentials."
+    },
+    "transport": {
+      "type": "local-ui",
+      "notes": "Local visual inspector for MCP server transports."
+    },
+    "verification": {
+      "lastVerified": "2026-06-04",
+      "cadence": "30d",
+      "smokeTest": "verify/mcp-inspector-smoke.md"
+    },
+    "security": {
+      "requiresConsent": true,
+      "showsExactCommands": true,
+      "requiresEnvVars": [],
+      "notes": "MCP tools are model-controlled and can execute with user privileges; sensitive invocations require human approval."
+    },
+    "replacementPolicy": {
+      "capabilities": [
+        "mcp.verify"
+      ],
+      "replaceWithoutCourseChange": true
+    },
+    "risk": {
+      "level": "high",
+      "notes": "Inspection can expose or invoke tools that access files, networks, credentials or external systems."
+    }
+  }
+}

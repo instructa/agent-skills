@@ -1,0 +1,53 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "instructa.webapp",
+  "version": "1.0.0",
+  "description": "Project workflow plugin for interactive web applications, dashboards and internal tools.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "instructa",
+    "project",
+    "webapp"
+  ],
+  "skills": [
+    "webapp-project-workflow"
+  ],
+  "x-agentrig": {
+    "displayName": "Instructa Webapp Project",
+    "kind": "plugin",
+    "profile": "project",
+    "owner": "instructa",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Project Plugins"
+    },
+    "pluginDependencies": [
+      "agentrig/instructa.base@^1.0.0"
+    ],
+    "publicSkills": [
+      "webapp-project-workflow"
+    ],
+    "requiredCapabilities": {
+      "docs.latest": {
+        "provider": "third-party.context7",
+        "required": true,
+        "fallback": "Use official docs, package source, vendored examples or repository evidence."
+      },
+      "browser.verify": {
+        "provider": "third-party.playwright-mcp",
+        "required": true,
+        "fallback": "Manual browser verification with screenshots, accessibility notes and reproduction steps."
+      }
+    },
+    "optionalCapabilities": [
+      "plan.ledger",
+      "repo.remote"
+    ],
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ]
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "third-party.github-mcp",
+  "version": "1.0.0",
+  "description": "Curated provider manifest for the repo.remote, ci.status and repo.security capabilities.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "third-party",
+    "github",
+    "mcp"
+  ],
+  "x-agentrig": {
+    "displayName": "GitHub MCP Provider",
+    "kind": "plugin",
+    "profile": "third-party",
+    "owner": "external",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Third-party Providers"
+    },
+    "source": {
+      "upstreamOwner": "GitHub",
+      "upstreamSource": "https://github.com/github/github-mcp-server",
+      "wrapperOnly": true
+    },
+    "providesCapabilities": {
+      "repo.remote": {
+        "type": "tool",
+        "requiredByCore": false,
+        "riskLevel": "high",
+        "fallback": "Use local git, gh CLI with explicit commands, or the GitHub web UI manually."
+      },
+      "ci.status": {
+        "type": "tool",
+        "requiredByCore": false,
+        "riskLevel": "high",
+        "fallback": "Use the GitHub web UI, gh run/list commands, or provider-native CI status surfaces manually."
+      },
+      "repo.security": {
+        "type": "tool",
+        "requiredByCore": false,
+        "riskLevel": "high",
+        "fallback": "Use GitHub security tabs, Dependabot/secret scanning UI, or explicit gh/API commands manually."
+      }
+    },
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ],
+    "install": {
+      "method": "Configure the upstream GitHub MCP server with minimal toolsets for the target agent.",
+      "commands": [
+        "agentrig doctor --capability repo.remote",
+        "agentrig doctor --capability ci.status",
+        "agentrig doctor --capability repo.security"
+      ],
+      "uninstall": [
+        "Remove the GitHub MCP server from the target agent MCP configuration and revoke unused GitHub tokens."
+      ]
+    },
+    "environment": {
+      "required": [
+        "GITHUB_PERSONAL_ACCESS_TOKEN"
+      ],
+      "optional": []
+    },
+    "permissions": {
+      "filesystem": [],
+      "network": [
+        "api.github.com",
+        "github.com repositories allowed by the configured token"
+      ],
+      "runsLocalCode": true,
+      "approval": "Human approval required for write operations, workflow actions, security changes or token-scope changes.",
+      "defaultToolsets": [
+        "context",
+        "repos",
+        "issues",
+        "pull_requests"
+      ],
+      "optionalToolsets": [
+        "actions",
+        "code_security",
+        "dependabot",
+        "secret_protection",
+        "security_advisories"
+      ],
+      "neverDefaultToolsets": [
+        "all"
+      ]
+    },
+    "transport": {
+      "type": "local-mcp",
+      "notes": "Local MCP server using a GitHub token; default to read-only/review flows."
+    },
+    "verification": {
+      "lastVerified": "2026-06-04",
+      "cadence": "30d",
+      "smokeTest": "verify/github-mcp-smoke.md"
+    },
+    "security": {
+      "requiresConsent": true,
+      "showsExactCommands": true,
+      "requiresEnvVars": [
+        "GITHUB_PERSONAL_ACCESS_TOKEN"
+      ],
+      "notes": "Never default to the GitHub MCP `all` toolset. Use minimal token scopes and require approval for sensitive operations."
+    },
+    "replacementPolicy": {
+      "capabilities": [
+        "repo.remote",
+        "ci.status",
+        "repo.security"
+      ],
+      "replaceWithoutCourseChange": true
+    },
+    "risk": {
+      "level": "high",
+      "notes": "GitHub tokens can expose private repositories and mutate issues, PRs, CI or security settings."
+    }
+  }
+}

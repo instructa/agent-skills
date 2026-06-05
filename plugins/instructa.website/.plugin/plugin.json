@@ -1,0 +1,53 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "instructa.website",
+  "version": "1.0.0",
+  "description": "Project workflow plugin for marketing, content, documentation, landing and blog sites.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "instructa",
+    "project",
+    "website"
+  ],
+  "skills": [
+    "website-project-workflow"
+  ],
+  "x-agentrig": {
+    "displayName": "Instructa Website Project",
+    "kind": "plugin",
+    "profile": "project",
+    "owner": "instructa",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Project Plugins"
+    },
+    "pluginDependencies": [
+      "agentrig/instructa.base@^1.0.0"
+    ],
+    "publicSkills": [
+      "website-project-workflow"
+    ],
+    "requiredCapabilities": {
+      "docs.latest": {
+        "provider": "third-party.context7",
+        "required": true,
+        "fallback": "Use official docs, package source, vendored examples or repository evidence."
+      },
+      "browser.verify": {
+        "provider": "third-party.playwright-mcp",
+        "required": true,
+        "fallback": "Manual browser verification with screenshots, accessibility notes and reproduction steps."
+      }
+    },
+    "optionalCapabilities": [
+      "deploy.preview",
+      "repo.remote"
+    ],
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ]
+  }
+}

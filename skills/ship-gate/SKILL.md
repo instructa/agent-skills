@@ -1,25 +1,25 @@
 ---
-name: root-cause-finder
-description: Trace expected behavior to the first unintended side effect before changing contracts, parsing, types, schemas, null handling, or downstream guards.
+name: ship-gate
+description: Make the final ship/no-ship decision using spec, ledger, review receipts, test proof, security proof, docs state, and release risks.
 ---
 
-# Root Cause Finder
+# Ship Gate
 
 ## Purpose
 
-Stop symptom fixes by proving whether the payload, request, mutation, or side effect should have existed at all.
+Prevent unfinished or unproven work from being called done when review, tests, security, docs, or ownership state is missing.
 
 ## Use when
 
-- debugging protocol errors, null payloads, missing fields, hydration bugs, state ownership bugs, background writes, or restore issues
-- reviewing a patch that changes a contract to accept surprising data
-- finding the first unintended write in a causal chain
+- the user says work is done or ready to ship
+- preparing a PR, release, merge, or handoff
+- checking whether review findings and proof receipts are complete
 
 ## Do not use when
 
-- the failure is already proven to be an isolated local typo
-- the user asks only for a broad code review
-- the correct fix is purely test placement
+- the project has not reached reviewable implementation
+- the user only wants a local code edit
+- no proof commands or manual verification can be produced
 
 ## Inputs needed
 
@@ -34,13 +34,12 @@ Stop symptom fixes by proving whether the payload, request, mutation, or side ef
 This skill must produce:
 
 ```txt
-expected behavior
-invariant
-causal chain
-first unintended side effect
-root cause
-minimal fix
-architectural follow-up
+ship decision
+required proof checklist
+blocking risks
+accepted residual risks
+release or handoff note
+ship receipt
 proof/receipt
 ledger event when durable state changes
 ```
@@ -63,12 +62,13 @@ ledger event when durable state changes
 
 ### Phase 2 - Analysis
 
-- Analyze trigger event.
-- Analyze call path.
-- Analyze should-have-happened decision.
-- Analyze state owners.
-- Analyze hidden writes.
-- Analyze symptom versus cause.
+- Analyze spec alignment.
+- Analyze ledger state.
+- Analyze review state.
+- Analyze test state.
+- Analyze security state.
+- Analyze docs state.
+- Analyze rollback or handoff.
 - Separate facts found in files from judgments or recommendations.
 - Choose one canonical owner or one canonical artifact whenever the decision concerns ownership.
 
@@ -112,9 +112,9 @@ ledger event when durable state changes
 Possible event types:
 
 ```txt
-root_cause.verified
+ship_gate.completed
+review.completed
 proof.receipt.added
-task.updated
 ```
 
 Fallback path if `plan.ledger` is unavailable:
@@ -129,7 +129,10 @@ docs/specs/*.md
 
 ```txt
 plan.ledger
-docs.latest
+repo.remote
+secrets.scan
+supplychain.scan
+shell.lint
 ```
 
 Only use capabilities that are available, relevant, and justified by the current task.
@@ -141,13 +144,13 @@ Only use capabilities that are available, relevant, and justified by the current
 - Do not create duplicate owners for the same rule.
 - Do not treat chat memory as durable project state.
 - Do not use optional capabilities just because they exist.
-- Do not make a contract more permissive until the observed payload is proven intended.
-- Do not stop at the first downstream parser or type error.
+- Do not mark work done with unresolved blocking review findings.
+- Do not treat absence of CI as proof.
 
 ## Final report
 
 ```txt
-Skill: root-cause-finder
+Skill: ship-gate
 Decision:
 Changed:
 Proof:

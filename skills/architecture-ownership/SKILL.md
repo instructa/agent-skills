@@ -1,99 +1,155 @@
 ---
 name: architecture-ownership
-description: Determine runtime owner, first-fix layer, and canonical long-term module or package owner in layered codebases. Use when placing code across UI vs platform shell vs runtime orchestration vs domain or application vs shared core vs adapter or integration layers, debugging ownership issues, removing duplicate policy paths, or answering "where should this live?" architecture questions.
+description: Decide runtime owner, first-fix owner, canonical long-term owner, wrong competing owners, and cleanup direction in layered codebases.
 ---
 
 # Architecture Ownership
 
-Use this skill for repo-specific ownership and placement decisions in layered systems.
+## Purpose
 
-Focus on long-term canonical ownership, not only the layer where the current bug appears.
+Prevent behavior from being fixed in the layer where it merely surfaced instead of the layer that should own it long term.
 
-## Required Discovery
+## Use when
 
-Before deciding ownership:
+- placing shared policy across UI, runtime, domain, shared core, and adapters
+- debugging behavior that appears in the wrong layer
+- removing duplicate policy paths
+- answering where a contract or rule should live
 
-- Read the repo docs that define architecture, boundaries, or responsibilities.
-- Read ADRs or design docs that define runtime flow, request flow, or package boundaries.
-- Inspect the top-level project structure to map the repo's concrete module or package names onto the generic layers in this skill.
+## Do not use when
 
-When docs are incomplete:
+- the question is only naming or formatting with no ownership effect
+- the repo has no layered boundary and the fix is purely local
+- security review or test placement is the primary decision
 
-- infer the current layer model from the codebase
-- state the assumption explicitly
-- keep the recommendation aligned to one canonical owner
+## Inputs needed
 
-## Required Output
+- repo state and active branch
+- user request and acceptance criteria
+- relevant files, diffs, docs, ADRs, or manifests
+- known constraints, non-goals, and risk boundaries
+- optional capability context when justified
 
-When answering an ownership or placement question, explicitly separate:
+## Output contract
 
-- `Runtime owner`
-- `First fix owner`
-- `Canonical long-term owner`
-- `Competing owners that are wrong`
-- `Cleanup direction`
+This skill must produce:
 
-Do not collapse these into a single answer.
+```txt
+runtime owner
+first-fix owner
+canonical long-term owner
+competing owners that are wrong
+cleanup direction
+proof/receipt
+ledger event when durable state changes
+```
 
-## Decision Order
+## Workflow
 
-1. Identify the runtime concern:
-   - visible UI state
-   - platform shell or OS bridge
-   - runtime composition or request dispatch
-   - canonical domain or application workflow
-   - pure shared logic
-   - concrete adapter or integration behavior
-2. Name the layer where the wrong behavior currently happens.
-3. Decide whether that layer is only the `First fix owner` or also the `Canonical long-term owner`.
-4. If the behavior is reusable product or business policy, move the long-term owner out of the runtime orchestration layer.
-5. Remove duplicate policy, fallback logic, or dual paths once the canonical owner is clear.
+### Phase 0 - Triage
 
-## Layer Map
+- Restate the task in one sentence.
+- Decide whether this skill is the right owner or whether another gate should run first.
+- Identify the current artifact, behavior, or decision that can drift.
+- Name the expected durable output before touching files.
 
-- `UI layer`
-  - owns visible UI state, navigation, rendering, presentation-oriented derived state, and view composition
-- `Platform shell`
-  - owns native shell concerns, OS bridges, local device integrations, filesystem or permission bridges, process or session plumbing, and platform-local persistence helpers
-- `Runtime orchestration layer`
-  - owns runtime composition, request dispatch, background coordination, worker management, event publication, and process-level orchestration
-  - this is often the `First fix owner`
-  - this is not automatically the `Canonical long-term owner`
-- `Domain or application layer`
-  - owns canonical product workflow, business rules, reusable application services, and cross-interface behavior
-- `Shared core layer`
-  - owns shared types, enums, validation, normalization, capability logic, and pure logic used across runtimes
-- `Adapter or integration layer`
-  - owns concrete protocol, provider, vendor, transport, or API integration behavior
-  - does not own cross-provider or cross-integration product policy
+### Phase 1 - Context gathering
 
-Translate these generic layers into the repo's actual module, package, crate, or service names before making a recommendation.
+- Read only the files, docs, manifests, tests, or diffs needed for this decision.
+- Prefer repo-local architecture and test conventions over generic advice.
+- Use optional capabilities only when the request depends on current external facts, ledger state, remote state, scanning, or shell linting.
+- Capture missing context as an explicit assumption rather than filling gaps with guesses.
 
-## Hard-Cut Rules
+### Phase 2 - Analysis
 
-- Do not leave reusable domain policy in the runtime orchestration layer just because the wrong behavior currently happens there.
-- Do not put UI state, layout state, restore state, or user-facing presentation ownership in the runtime orchestration layer.
-- Do not put platform shell or native integration concerns in the domain or application layer.
-- Do not put cross-provider or cross-vendor product policy in adapter or integration layers.
-- Do not put pure validation, normalization, or capability logic in orchestration code when it can live in shared core or a narrow domain module.
+- Analyze runtime concern.
+- Analyze current wrong layer.
+- Analyze canonical owner.
+- Analyze shared type owner.
+- Analyze adapter boundary.
+- Analyze cleanup target.
+- Separate facts found in files from judgments or recommendations.
+- Choose one canonical owner or one canonical artifact whenever the decision concerns ownership.
 
-## Common Judgments
+### Phase 3 - Action / artifact
 
-- If the question is "who should decide this for all future interfaces?" the answer is usually the domain or application layer, a narrow domain package, or shared core, not the runtime orchestration layer.
-- If the question is "where do I patch this bug first so the product stops doing the wrong thing?" the answer may still be the runtime orchestration layer.
-- If the question is "who owns the wire shape or payload type?" the answer is usually the shared API or core type layer, not the runtime orchestration layer.
-- If the question is "who owns vendor-specific behavior?" the answer is the relevant adapter or integration layer, but only for adapter behavior, not canonical product policy.
+- Produce the smallest durable artifact that satisfies the output contract.
+- Keep edits or recommendations scoped to the stated owner and acceptance criteria.
+- If writing files, avoid broad rewrites that are not required by the proof target.
+- If recording state, prefer provider-backed ledger events and use the fallback ledger when no provider is installed.
 
-## Example Pattern
+### Phase 4 - Verification
 
-Example: a planning policy bug currently lives in a runtime runner module.
+- Run the narrowest relevant verification first.
+- Add broader checks only when the touched surface or risk requires them.
+- Verify generated artifacts are linked from the final report.
+- If verification is impossible, state why and what would prove the result.
 
-- `Runtime owner`: runtime orchestration layer
-- `First fix owner`: runtime orchestration layer
-- `Canonical long-term owner`: domain or application layer
-- `Type or capability owner`: shared core layer
-- `Competing owners that are wrong`: UI layer, platform shell, adapter or integration layers
+### Phase 5 - Final report
 
-## Additional Resource
+- Report the decision, changed artifacts, proof, ledger event, risks, and next step.
+- Include enough evidence for a later agent to resume without re-reading the whole chat.
 
-For a reusable classification matrix and example splits, see [references/ownership-matrix.md](references/ownership-matrix.md).
+## Gates / stop conditions
+
+- Stop if required files or user intent are unavailable.
+- Stop if the output would invent authority the repo does not have.
+- Stop if a human product/security/architecture decision is required.
+- Stop if proof cannot be produced or explicitly marked as missing.
+- Stop before remote, destructive, or credential-touching actions without consent.
+
+## Verification requirements
+
+- List files inspected.
+- List commands run and exact result.
+- List generated or changed artifacts.
+- Record manual verification when automation is not available.
+- Record unresolved risks instead of implying certainty.
+
+## PlanDB / ledger events
+
+Possible event types:
+
+```txt
+ownership.changed
+adr.proposed
+proof.receipt.added
+```
+
+Fallback path if `plan.ledger` is unavailable:
+
+```txt
+docs/plan-ledger/events.jsonl
+docs/adrs/*.md
+docs/specs/*.md
+```
+
+## Optional capabilities
+
+```txt
+plan.ledger
+```
+
+Only use capabilities that are available, relevant, and justified by the current task.
+
+## Anti-patterns
+
+- Do not hide uncertainty behind confident prose.
+- Do not add compatibility layers for internal draft shapes.
+- Do not create duplicate owners for the same rule.
+- Do not treat chat memory as durable project state.
+- Do not use optional capabilities just because they exist.
+- Do not let the runtime layer keep policy because the bug appeared there.
+- Do not put vendor-specific behavior into shared core.
+
+## Final report
+
+```txt
+Skill: architecture-ownership
+Decision:
+Changed:
+Proof:
+Ledger:
+Risks:
+Next:
+```

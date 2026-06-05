@@ -1,0 +1,92 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "third-party.playwright-mcp",
+  "version": "1.0.0",
+  "description": "Curated provider manifest for the browser.verify capability.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "third-party",
+    "browser",
+    "playwright",
+    "mcp"
+  ],
+  "x-agentrig": {
+    "displayName": "Playwright MCP Provider",
+    "kind": "plugin",
+    "profile": "third-party",
+    "owner": "external",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Third-party Providers"
+    },
+    "source": {
+      "upstreamOwner": "Microsoft",
+      "upstreamSource": "https://github.com/microsoft/playwright-mcp",
+      "wrapperOnly": true
+    },
+    "providesCapabilities": {
+      "browser.verify": {
+        "type": "tool",
+        "requiredByCore": false,
+        "riskLevel": "high",
+        "fallback": "Manual browser verification with screenshots, accessibility notes and reproduction steps."
+      }
+    },
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ],
+    "install": {
+      "method": "Configure the upstream Playwright MCP server for the target agent.",
+      "commands": [
+        "agentrig doctor --capability browser.verify"
+      ],
+      "uninstall": [
+        "Remove the Playwright MCP server from the target agent MCP configuration and remove this provider plugin from the AgentRig install set."
+      ]
+    },
+    "environment": {
+      "required": [],
+      "optional": [
+        "PLAYWRIGHT_BROWSERS_PATH"
+      ]
+    },
+    "permissions": {
+      "filesystem": [
+        "Browser profile/cache locations selected by the upstream server"
+      ],
+      "network": [
+        "Web pages opened for verification"
+      ],
+      "runsLocalCode": true,
+      "approval": "Human approval required for mutating flows touching real accounts, data or payments."
+    },
+    "transport": {
+      "type": "local-mcp",
+      "notes": "Local MCP server exposing browser automation tools."
+    },
+    "verification": {
+      "lastVerified": "2026-06-04",
+      "cadence": "30d",
+      "smokeTest": "verify/playwright-mcp-smoke.md"
+    },
+    "security": {
+      "requiresConsent": true,
+      "showsExactCommands": true,
+      "requiresEnvVars": [],
+      "notes": "Default to read/verify flows. Sensitive or destructive browser actions require explicit user confirmation."
+    },
+    "replacementPolicy": {
+      "capabilities": [
+        "browser.verify"
+      ],
+      "replaceWithoutCourseChange": true
+    },
+    "risk": {
+      "level": "high",
+      "notes": "Browser automation can mutate real accounts or data when pointed at live systems."
+    }
+  }
+}

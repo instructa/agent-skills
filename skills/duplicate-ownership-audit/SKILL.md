@@ -1,25 +1,28 @@
 ---
-name: root-cause-finder
-description: Trace expected behavior to the first unintended side effect before changing contracts, parsing, types, schemas, null handling, or downstream guards.
+name: duplicate-ownership-audit
+description: Find duplicate ownership, hidden second sources of truth, contract drift, duplicated defaults, duplicated validation, and competing canonicalization paths.
+aliases:
+  - find-duplicate-ownership
 ---
 
-# Root Cause Finder
+# Duplicate Ownership Audit
 
 ## Purpose
 
-Stop symptom fixes by proving whether the payload, request, mutation, or side effect should have existed at all.
+Expose rules that appear to work only because multiple layers repair, normalize, default, or validate the same contract.
 
 ## Use when
 
-- debugging protocol errors, null payloads, missing fields, hydration bugs, state ownership bugs, background writes, or restore issues
-- reviewing a patch that changes a contract to accept surprising data
-- finding the first unintended write in a causal chain
+- auditing state, persistence, validation, defaults, canonicalization, routing, or cache rules
+- reviewing a refactor for hidden second owners
+- deciding what should be deleted in a hard cut
+- checking whether adapters are valid boundaries or policy clones
 
 ## Do not use when
 
-- the failure is already proven to be an isolated local typo
-- the user asks only for a broad code review
-- the correct fix is purely test placement
+- the request is a narrow grep for one helper
+- the duplication is intentionally generated from one source
+- the issue is only local code style without ownership drift
 
 ## Inputs needed
 
@@ -34,13 +37,11 @@ Stop symptom fixes by proving whether the payload, request, mutation, or side ef
 This skill must produce:
 
 ```txt
-expected behavior
-invariant
-causal chain
-first unintended side effect
-root cause
-minimal fix
-architectural follow-up
+duplicate findings with severity
+competing owners
+winning owner
+hard-cut delete/keep plan
+legitimate boundary exceptions
 proof/receipt
 ledger event when durable state changes
 ```
@@ -63,12 +64,12 @@ ledger event when durable state changes
 
 ### Phase 2 - Analysis
 
-- Analyze trigger event.
-- Analyze call path.
-- Analyze should-have-happened decision.
-- Analyze state owners.
-- Analyze hidden writes.
-- Analyze symptom versus cause.
+- Analyze rule or contract.
+- Analyze current owners.
+- Analyze recommended owner.
+- Analyze legitimate adapter work.
+- Analyze delete target.
+- Analyze proof files.
 - Separate facts found in files from judgments or recommendations.
 - Choose one canonical owner or one canonical artifact whenever the decision concerns ownership.
 
@@ -112,9 +113,9 @@ ledger event when durable state changes
 Possible event types:
 
 ```txt
-root_cause.verified
-proof.receipt.added
-task.updated
+duplicate.detected
+ownership.changed
+adr.proposed
 ```
 
 Fallback path if `plan.ledger` is unavailable:
@@ -129,7 +130,6 @@ docs/specs/*.md
 
 ```txt
 plan.ledger
-docs.latest
 ```
 
 Only use capabilities that are available, relevant, and justified by the current task.
@@ -141,13 +141,13 @@ Only use capabilities that are available, relevant, and justified by the current
 - Do not create duplicate owners for the same rule.
 - Do not treat chat memory as durable project state.
 - Do not use optional capabilities just because they exist.
-- Do not make a contract more permissive until the observed payload is proven intended.
-- Do not stop at the first downstream parser or type error.
+- Do not reduce the audit to searching for normalize or validate.
+- Do not flag legitimate adapters as duplicates without owner analysis.
 
 ## Final report
 
 ```txt
-Skill: root-cause-finder
+Skill: duplicate-ownership-audit
 Decision:
 Changed:
 Proof:

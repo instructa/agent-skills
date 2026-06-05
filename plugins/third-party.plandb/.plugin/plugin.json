@@ -1,0 +1,90 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "third-party.plandb",
+  "version": "1.0.0",
+  "description": "Curated provider manifest for the plan.ledger capability.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "third-party",
+    "ledger",
+    "plandb"
+  ],
+  "x-agentrig": {
+    "displayName": "PlanDB Provider",
+    "kind": "plugin",
+    "profile": "third-party",
+    "owner": "external",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Third-party Providers"
+    },
+    "source": {
+      "upstreamOwner": "PlanDB project",
+      "upstreamSource": "local PlanDB task graph/ledger tooling",
+      "wrapperOnly": true
+    },
+    "providesCapabilities": {
+      "plan.ledger": {
+        "type": "ledger",
+        "requiredByCore": false,
+        "riskLevel": "medium",
+        "fallback": "docs/plan-ledger/events.jsonl, docs/adrs/*.md, docs/specs/*.md"
+      }
+    },
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ],
+    "install": {
+      "method": "Use the repository-local PlanDB tooling already configured for the project.",
+      "commands": [
+        "agentrig doctor --capability plan.ledger"
+      ],
+      "uninstall": [
+        "Remove this provider plugin from the AgentRig install set; keep fallback ledger files in the project."
+      ]
+    },
+    "environment": {
+      "required": [],
+      "optional": [
+        "PLANDB_DB_PATH"
+      ]
+    },
+    "permissions": {
+      "filesystem": [
+        "Project-local PlanDB database",
+        "Project docs/plan-ledger, docs/adrs and docs/specs fallback files"
+      ],
+      "network": [],
+      "runsLocalCode": true,
+      "approval": "Human approval required before writing durable project planning state."
+    },
+    "transport": {
+      "type": "local",
+      "notes": "Local project ledger access; no network transport required by this wrapper."
+    },
+    "verification": {
+      "lastVerified": "2026-06-04",
+      "cadence": "30d",
+      "smokeTest": "verify/plandb-smoke.md"
+    },
+    "security": {
+      "requiresConsent": true,
+      "showsExactCommands": true,
+      "requiresEnvVars": [],
+      "notes": "Provider manifest only. Does not own PlanDB upstream code. Durable ledger writes require human-visible intent."
+    },
+    "replacementPolicy": {
+      "capabilities": [
+        "plan.ledger"
+      ],
+      "replaceWithoutCourseChange": true
+    },
+    "risk": {
+      "level": "medium",
+      "notes": "Can persist planning and decision state, but remains project-local by default."
+    }
+  }
+}

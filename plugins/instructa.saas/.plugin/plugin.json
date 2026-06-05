@@ -1,0 +1,69 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "instructa.saas",
+  "version": "1.0.0",
+  "description": "Project workflow plugin for SaaS products with users, data, billing, jobs and production operations.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "instructa",
+    "project",
+    "saas"
+  ],
+  "skills": [
+    "saas-project-workflow"
+  ],
+  "x-agentrig": {
+    "displayName": "Instructa SaaS Project",
+    "kind": "plugin",
+    "profile": "project",
+    "owner": "instructa",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Project Plugins"
+    },
+    "pluginDependencies": [
+      "agentrig/instructa.base@^1.0.0"
+    ],
+    "publicSkills": [
+      "saas-project-workflow"
+    ],
+    "requiredCapabilities": {
+      "plan.ledger": {
+        "provider": "third-party.plandb",
+        "required": true,
+        "fallback": "docs/plan-ledger/events.jsonl"
+      },
+      "docs.latest": {
+        "provider": "third-party.context7",
+        "required": true,
+        "fallback": "Use official docs, package source, vendored examples or repository evidence."
+      },
+      "browser.verify": {
+        "provider": "third-party.playwright-mcp",
+        "required": true,
+        "fallback": "Manual browser verification with screenshots, accessibility notes and reproduction steps."
+      },
+      "secrets.scan": {
+        "provider": "third-party.local-scanners",
+        "required": true,
+        "fallback": "Manual secret scan with reviewed local commands and provider-hosted secret protection when available."
+      },
+      "supplychain.scan": {
+        "provider": "third-party.local-scanners",
+        "required": true,
+        "fallback": "Manual package and dependency review with package manager audit, OSV, Trivy or provider-native security tooling."
+      }
+    },
+    "optionalCapabilities": [
+      "repo.remote",
+      "deploy.preview",
+      "observability.logs"
+    ],
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ]
+  }
+}

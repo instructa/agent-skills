@@ -1,0 +1,93 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "third-party.native-debug",
+  "version": "1.0.0",
+  "description": "Curated provider manifest for the native.debug capability.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "third-party",
+    "native",
+    "debug"
+  ],
+  "x-agentrig": {
+    "displayName": "Native Debug Provider",
+    "kind": "plugin",
+    "profile": "third-party",
+    "owner": "external",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Third-party Providers"
+    },
+    "source": {
+      "upstreamOwner": "LLDB, GDB and platform debugger maintainers",
+      "upstreamSource": "debug-lldb, LLDB, GDB and platform-native debugger tooling",
+      "wrapperOnly": true
+    },
+    "providesCapabilities": {
+      "native.debug": {
+        "type": "tool",
+        "requiredByCore": false,
+        "riskLevel": "high",
+        "fallback": "Manual log collection, crash reports, thread dumps and platform debugger steps run by the user."
+      }
+    },
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ],
+    "install": {
+      "method": "Use platform debugger tooling already available for the project or install the relevant debugger through trusted system channels.",
+      "commands": [
+        "agentrig doctor --capability native.debug"
+      ],
+      "uninstall": [
+        "Remove this provider plugin from the AgentRig install set; uninstall debugger tooling through the platform package manager if needed."
+      ]
+    },
+    "environment": {
+      "required": [],
+      "optional": [
+        "LLDB_DEBUGSERVER_PATH",
+        "DEBUG_SYMBOLS_PATH"
+      ]
+    },
+    "permissions": {
+      "filesystem": [
+        "Debug symbols",
+        "Crash reports",
+        "Process logs",
+        "Temporary backtrace files"
+      ],
+      "network": [],
+      "runsLocalCode": true,
+      "approval": "Human approval required before attaching to a process, escalating privileges or reading sensitive process memory."
+    },
+    "transport": {
+      "type": "local-debugger",
+      "notes": "Platform-local debugger commands; no network transport required by this wrapper."
+    },
+    "verification": {
+      "lastVerified": "2026-06-04",
+      "cadence": "30d",
+      "smokeTest": "verify/native-debug-smoke.md"
+    },
+    "security": {
+      "requiresConsent": true,
+      "showsExactCommands": true,
+      "requiresEnvVars": [],
+      "notes": "Native debugging can inspect process memory and require elevated privileges. Attach and privilege changes require human approval."
+    },
+    "replacementPolicy": {
+      "capabilities": [
+        "native.debug"
+      ],
+      "replaceWithoutCourseChange": true
+    },
+    "risk": {
+      "level": "high",
+      "notes": "Debugger attachment can expose secrets in memory, pause processes or require elevated OS permissions."
+    }
+  }
+}

@@ -1,78 +1,155 @@
 ---
 name: hard-cut
-description: "Enforce a hard-cut cleanup policy: keep one canonical implementation and delete compatibility, migration, fallback, adapter, coercion, and dual-shape code. Use for pre-release or internal-draft refactors where the goal is one final shape, especially when changing schemas, contracts, persisted state, routing, configuration, feature flags, enum/value sets, or architecture."
+description: Replace draft or internal legacy shapes with one canonical implementation by deleting fallback, compatibility, aliases, shims, coercions, and dual paths.
 ---
 
-# Hard-Cut Policy
+# Hard Cut
 
-Apply a hard-cut policy by default for refactors or behavior changes that alter schemas, contracts, persisted state, routing, configuration, feature flags, enum/value sets, or architecture where old-state preservation might otherwise be retained.
+## Purpose
 
-Keep one canonical codepath. Remove old-shape handling. Do not preserve draft or legacy behavior unless there is concrete evidence of a real external compatibility boundary.
+Keep one final shape when old behavior is internal draft state and no real external compatibility boundary exists.
 
-## Default assumption
+## Use when
 
-Treat previous shapes as internal draft shapes unless there is concrete evidence they are already:
-- persisted external or user data
-- on-disk or database state that must still load
-- a wire format used across process or service boundaries
-- a documented or publicly supported contract
-- actively depended on outside the refactor boundary
+- changing schemas, contracts, persisted state, routing, configuration, feature flags, enum sets, or architecture
+- removing draft compatibility
+- choosing simplification over shims
+- cleaning up duplicate owners after ownership is clear
 
-Mere existence of old code is not proof of a compatibility obligation.
+## Do not use when
 
-## Core policy
+- there is real persisted external data or public wire compatibility to preserve
+- the user explicitly asks for a migration plan
+- the old shape is an active documented contract
 
-When an old shape appears, remove that path and convert the codebase to the canonical shape. Do not add code to support it. Do not add code specifically to reject it just because it once existed.
+## Inputs needed
 
-## Hard rules
+- repo state and active branch
+- user request and acceptance criteria
+- relevant files, diffs, docs, ADRs, or manifests
+- known constraints, non-goals, and risk boundaries
+- optional capability context when justified
 
-Apply these rules in order:
+## Output contract
 
-1. Do not add fallback behavior.
-2. Do not add compatibility branches.
-3. Do not add shims, adapters, coercions, aliases, or dual-shape support.
-4. Do not add fail-fast guards whose purpose is to detect or reject old shapes.
-5. Do not add tests whose purpose is to assert rejection of old or legacy shapes.
-6. Prefer deleting old-shape handling over preserving or policing it.
-7. Update producers, consumers, fixtures, and tests to use only the canonical shape.
-8. Remove dead code, dead conditionals, obsolete comments, and translation helpers related to old shapes.
-9. Keep validation only for the current canonical contract. Validation may reject malformed current-shape input, but must not branch on legacy discriminators, old field names, aliases, old enum members, or draft formats.
-10. When choosing between backward compatibility and simplification, choose simplification.
+This skill must produce:
 
-## Execution workflow
+```txt
+canonical target shape
+deleted legacy paths
+updated producers and consumers
+current-shape validation only
+proof that old branches are gone
+proof/receipt
+ledger event when durable state changes
+```
 
-1. Identify the canonical target shape.
-2. Trace every producer and consumer of that shape.
-3. Update all live codepaths to emit and consume only the canonical shape.
-4. Update fixtures, test data, builders, and snapshots to the canonical shape.
-5. Delete legacy handling, branching, comments, and helpers.
-6. Keep only current-shape validation that is still required for correctness.
-7. If a real external compatibility boundary exists, isolate it and call out the exact file, function, boundary, and reason it cannot be removed yet.
+## Workflow
 
-## Review checklist
+### Phase 0 - Triage
 
-- Reject changes that preserve old-shape behavior behind conditionals.
-- Reject translation layers between old and new shapes.
-- Reject validation branches added only to reject legacy inputs.
-- Reject tests added only to memorialize abandoned draft formats.
-- Remove dead helpers and comments that describe removed draft formats.
-- Keep one owner for the canonical contract.
+- Restate the task in one sentence.
+- Decide whether this skill is the right owner or whether another gate should run first.
+- Identify the current artifact, behavior, or decision that can drift.
+- Name the expected durable output before touching files.
 
-## Deliverables
+### Phase 1 - Context gathering
 
-Deliver only:
-- a minimal implementation that supports the canonical shape
-- updated tests for the canonical shape only
-- removal of obsolete legacy-shape tests
-- no new rejection tests for old shapes
-- no runtime logic dedicated to recognizing legacy formats
+- Read only the files, docs, manifests, tests, or diffs needed for this decision.
+- Prefer repo-local architecture and test conventions over generic advice.
+- Use optional capabilities only when the request depends on current external facts, ledger state, remote state, scanning, or shell linting.
+- Capture missing context as an explicit assumption rather than filling gaps with guesses.
 
-## Exception rule
+### Phase 2 - Analysis
 
-Make an exception only when removing the old shape would break already persisted external or user data, on-disk or database state, cross-boundary wire formats, or a real public contract.
+- Analyze canonical target.
+- Analyze producer list.
+- Analyze consumer list.
+- Analyze fixtures and tests.
+- Analyze legacy branches.
+- Analyze external boundary exceptions.
+- Separate facts found in files from judgments or recommendations.
+- Choose one canonical owner or one canonical artifact whenever the decision concerns ownership.
 
-If such a boundary exists:
-- do not invent new compatibility layers elsewhere
-- name the exact file and function
-- describe the concrete persisted or public dependency
-- limit any compatibility discussion to that boundary only
+### Phase 3 - Action / artifact
+
+- Produce the smallest durable artifact that satisfies the output contract.
+- Keep edits or recommendations scoped to the stated owner and acceptance criteria.
+- If writing files, avoid broad rewrites that are not required by the proof target.
+- If recording state, prefer provider-backed ledger events and use the fallback ledger when no provider is installed.
+
+### Phase 4 - Verification
+
+- Run the narrowest relevant verification first.
+- Add broader checks only when the touched surface or risk requires them.
+- Verify generated artifacts are linked from the final report.
+- If verification is impossible, state why and what would prove the result.
+
+### Phase 5 - Final report
+
+- Report the decision, changed artifacts, proof, ledger event, risks, and next step.
+- Include enough evidence for a later agent to resume without re-reading the whole chat.
+
+## Gates / stop conditions
+
+- Stop if required files or user intent are unavailable.
+- Stop if the output would invent authority the repo does not have.
+- Stop if a human product/security/architecture decision is required.
+- Stop if proof cannot be produced or explicitly marked as missing.
+- Stop before remote, destructive, or credential-touching actions without consent.
+
+## Verification requirements
+
+- List files inspected.
+- List commands run and exact result.
+- List generated or changed artifacts.
+- Record manual verification when automation is not available.
+- Record unresolved risks instead of implying certainty.
+
+## PlanDB / ledger events
+
+Possible event types:
+
+```txt
+hard_cut.executed
+ownership.changed
+proof.receipt.added
+```
+
+Fallback path if `plan.ledger` is unavailable:
+
+```txt
+docs/plan-ledger/events.jsonl
+docs/adrs/*.md
+docs/specs/*.md
+```
+
+## Optional capabilities
+
+```txt
+plan.ledger
+```
+
+Only use capabilities that are available, relevant, and justified by the current task.
+
+## Anti-patterns
+
+- Do not hide uncertainty behind confident prose.
+- Do not add compatibility layers for internal draft shapes.
+- Do not create duplicate owners for the same rule.
+- Do not treat chat memory as durable project state.
+- Do not use optional capabilities just because they exist.
+- Do not add shims, adapters, aliases, coercions, or fallback branches for old draft shapes.
+- Do not add tests whose purpose is only to memorialize rejected legacy inputs.
+
+## Final report
+
+```txt
+Skill: hard-cut
+Decision:
+Changed:
+Proof:
+Ledger:
+Risks:
+Next:
+```

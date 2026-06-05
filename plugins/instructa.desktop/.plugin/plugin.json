@@ -1,0 +1,59 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "instructa.desktop",
+  "version": "1.0.0",
+  "description": "Project workflow plugin for installable, local-first and native desktop applications.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "instructa",
+    "project",
+    "desktop"
+  ],
+  "skills": [
+    "desktop-project-workflow"
+  ],
+  "x-agentrig": {
+    "displayName": "Instructa Desktop Project",
+    "kind": "plugin",
+    "profile": "project",
+    "owner": "instructa",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Project Plugins"
+    },
+    "pluginDependencies": [
+      "agentrig/instructa.base@^1.0.0"
+    ],
+    "publicSkills": [
+      "desktop-project-workflow"
+    ],
+    "requiredCapabilities": {
+      "plan.ledger": {
+        "provider": "third-party.plandb",
+        "required": true,
+        "fallback": "docs/plan-ledger/events.jsonl"
+      },
+      "docs.latest": {
+        "provider": "third-party.context7",
+        "required": true,
+        "fallback": "Use official docs, package source, vendored examples or repository evidence."
+      },
+      "desktop.runtime": {
+        "provider": "third-party.desktop-runtime",
+        "required": true,
+        "fallback": "Manual desktop app launch with logs, screenshots and project-specific reproduction notes."
+      }
+    },
+    "optionalCapabilities": [
+      "native.debug",
+      "secrets.scan",
+      "repo.remote"
+    ],
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ]
+  }
+}

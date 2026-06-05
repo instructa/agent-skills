@@ -1,25 +1,28 @@
 ---
-name: root-cause-finder
-description: Trace expected behavior to the first unintended side effect before changing contracts, parsing, types, schemas, null handling, or downstream guards.
+name: test-ownership
+description: Choose the one owning test layer and canonical suite for an invariant before adding, moving, or deleting regression coverage.
+aliases:
+  - consolidate-test-suites
 ---
 
-# Root Cause Finder
+# Test Ownership
 
 ## Purpose
 
-Stop symptom fixes by proving whether the payload, request, mutation, or side effect should have existed at all.
+Prevent test drift by placing each invariant where the owning layer can prove it with the least duplicated coverage.
 
 ## Use when
 
-- debugging protocol errors, null payloads, missing fields, hydration bugs, state ownership bugs, background writes, or restore issues
-- reviewing a patch that changes a contract to accept surprising data
-- finding the first unintended write in a causal chain
+- adding tests after a bug fix
+- moving weak regression tests into canonical suites
+- choosing between unit, integration, and end-to-end coverage
+- removing duplicate tests that assert the same invariant
 
 ## Do not use when
 
-- the failure is already proven to be an isolated local typo
-- the user asks only for a broad code review
-- the correct fix is purely test placement
+- the user only wants to run existing tests
+- the test is pure snapshot churn with no invariant
+- the feature lacks a defined behavior to prove
 
 ## Inputs needed
 
@@ -34,13 +37,12 @@ Stop symptom fixes by proving whether the payload, request, mutation, or side ef
 This skill must produce:
 
 ```txt
-expected behavior
 invariant
-causal chain
-first unintended side effect
-root cause
-minimal fix
-architectural follow-up
+owning layer
+target suite/file
+placement action
+duplicates to merge/delete
+verification run
 proof/receipt
 ledger event when durable state changes
 ```
@@ -63,12 +65,12 @@ ledger event when durable state changes
 
 ### Phase 2 - Analysis
 
-- Analyze trigger event.
-- Analyze call path.
-- Analyze should-have-happened decision.
-- Analyze state owners.
-- Analyze hidden writes.
-- Analyze symptom versus cause.
+- Analyze invariant.
+- Analyze canonical suite.
+- Analyze failure mode.
+- Analyze duplicate coverage.
+- Analyze determinism.
+- Analyze verification command.
 - Separate facts found in files from judgments or recommendations.
 - Choose one canonical owner or one canonical artifact whenever the decision concerns ownership.
 
@@ -112,8 +114,8 @@ ledger event when durable state changes
 Possible event types:
 
 ```txt
-root_cause.verified
 proof.receipt.added
+ownership.changed
 task.updated
 ```
 
@@ -129,7 +131,6 @@ docs/specs/*.md
 
 ```txt
 plan.ledger
-docs.latest
 ```
 
 Only use capabilities that are available, relevant, and justified by the current task.
@@ -141,13 +142,13 @@ Only use capabilities that are available, relevant, and justified by the current
 - Do not create duplicate owners for the same rule.
 - Do not treat chat memory as durable project state.
 - Do not use optional capabilities just because they exist.
-- Do not make a contract more permissive until the observed payload is proven intended.
-- Do not stop at the first downstream parser or type error.
+- Do not add the same invariant at multiple layers without naming distinct failure modes.
+- Do not create standalone regression files because they are easier.
 
 ## Final report
 
 ```txt
-Skill: root-cause-finder
+Skill: test-ownership
 Decision:
 Changed:
 Proof:

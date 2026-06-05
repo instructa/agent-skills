@@ -1,0 +1,88 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "third-party.context7",
+  "version": "1.0.0",
+  "description": "Curated provider manifest for the docs.latest capability.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "third-party",
+    "documentation",
+    "context7"
+  ],
+  "x-agentrig": {
+    "displayName": "Context7 Provider",
+    "kind": "plugin",
+    "profile": "third-party",
+    "owner": "external",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Third-party Providers"
+    },
+    "source": {
+      "upstreamOwner": "Upstash",
+      "upstreamSource": "https://github.com/upstash/context7",
+      "wrapperOnly": true
+    },
+    "providesCapabilities": {
+      "docs.latest": {
+        "type": "tool",
+        "requiredByCore": false,
+        "riskLevel": "medium",
+        "fallback": "Use official docs, vendored docs, package source or repository examples as evidence."
+      }
+    },
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ],
+    "install": {
+      "method": "Install the upstream Context7 MCP or CLI/skills mode for the target agent.",
+      "commands": [
+        "agentrig doctor --capability docs.latest"
+      ],
+      "uninstall": [
+        "Remove the Context7 MCP/CLI configuration from the target agent and remove this provider plugin from the AgentRig install set."
+      ]
+    },
+    "environment": {
+      "required": [],
+      "optional": []
+    },
+    "permissions": {
+      "filesystem": [],
+      "network": [
+        "Context7 documentation lookup service",
+        "External package/library documentation sources"
+      ],
+      "runsLocalCode": true,
+      "approval": "Human approval required before sending proprietary code, secrets or private project context to documentation lookup tools."
+    },
+    "transport": {
+      "type": "mcp-or-cli",
+      "notes": "Use the upstream-supported transport for the target agent; this wrapper records capability and safety policy only."
+    },
+    "verification": {
+      "lastVerified": "2026-06-04",
+      "cadence": "30d",
+      "smokeTest": "verify/context7-smoke.md"
+    },
+    "security": {
+      "requiresConsent": true,
+      "showsExactCommands": true,
+      "requiresEnvVars": [],
+      "notes": "Context7 output is evidence, not final truth. Prefer explicit library IDs and versions."
+    },
+    "replacementPolicy": {
+      "capabilities": [
+        "docs.latest"
+      ],
+      "replaceWithoutCourseChange": true
+    },
+    "risk": {
+      "level": "medium",
+      "notes": "External and community-contributed docs can be incomplete, stale or unsafe."
+    }
+  }
+}

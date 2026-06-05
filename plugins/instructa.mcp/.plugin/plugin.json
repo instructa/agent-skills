@@ -1,0 +1,62 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "instructa.mcp",
+  "version": "1.0.0",
+  "description": "Project workflow plugin for MCP servers and agent tool integrations.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "instructa",
+    "project",
+    "mcp"
+  ],
+  "skills": [
+    "mcp-project-workflow"
+  ],
+  "x-agentrig": {
+    "displayName": "Instructa MCP Project",
+    "kind": "plugin",
+    "profile": "project",
+    "owner": "instructa",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Project Plugins"
+    },
+    "pluginDependencies": [
+      "agentrig/instructa.base@^1.0.0"
+    ],
+    "publicSkills": [
+      "mcp-project-workflow"
+    ],
+    "requiredCapabilities": {
+      "plan.ledger": {
+        "provider": "third-party.plandb",
+        "required": true,
+        "fallback": "docs/plan-ledger/events.jsonl"
+      },
+      "docs.latest": {
+        "provider": "third-party.context7",
+        "required": true,
+        "fallback": "Use official docs, package source, vendored examples or repository evidence."
+      },
+      "mcp.verify": {
+        "provider": "third-party.mcp-inspector",
+        "required": true,
+        "fallback": "Manual MCP server smoke test using client logs, tool descriptors and explicit test prompts."
+      },
+      "secrets.scan": {
+        "provider": "third-party.local-scanners",
+        "required": true,
+        "fallback": "Manual secret scan with reviewed local commands and provider-hosted secret protection when available."
+      }
+    },
+    "optionalCapabilities": [
+      "repo.remote"
+    ],
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ]
+  }
+}

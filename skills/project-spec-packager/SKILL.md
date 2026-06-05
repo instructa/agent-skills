@@ -1,25 +1,28 @@
 ---
-name: root-cause-finder
-description: Trace expected behavior to the first unintended side effect before changing contracts, parsing, types, schemas, null handling, or downstream guards.
+name: project-spec-packager
+description: Package a project idea or messy implementation request into a durable spec, proof oracle, ADR candidates, task seed, and agent handoff before coding starts.
+aliases:
+  - app-spec-packager
 ---
 
-# Root Cause Finder
+# Project Spec Packager
 
 ## Purpose
 
-Stop symptom fixes by proving whether the payload, request, mutation, or side effect should have existed at all.
+Turn product intent into a small, durable project package that prevents implementation drift before agents start editing code.
 
 ## Use when
 
-- debugging protocol errors, null payloads, missing fields, hydration bugs, state ownership bugs, background writes, or restore issues
-- reviewing a patch that changes a contract to accept surprising data
-- finding the first unintended write in a causal chain
+- starting a new project or major slice
+- turning ambiguous product intent into agent-ready artifacts
+- capturing proof criteria before implementation
+- seeding a planning ledger from a spec package
 
 ## Do not use when
 
-- the failure is already proven to be an isolated local typo
-- the user asks only for a broad code review
-- the correct fix is purely test placement
+- the user only wants a small code edit
+- the project already has a current accepted spec and proof oracle for this slice
+- the request is only to run tests or review an existing diff
 
 ## Inputs needed
 
@@ -34,13 +37,11 @@ Stop symptom fixes by proving whether the payload, request, mutation, or side ef
 This skill must produce:
 
 ```txt
-expected behavior
-invariant
-causal chain
-first unintended side effect
-root cause
-minimal fix
-architectural follow-up
+docs/specs/project-spec.md
+docs/specs/proof-oracle.md
+docs/adrs/ADR-candidates.md
+docs/plan-ledger/seed.json
+docs/handoffs/agent-handoff.md
 proof/receipt
 ledger event when durable state changes
 ```
@@ -63,12 +64,19 @@ ledger event when durable state changes
 
 ### Phase 2 - Analysis
 
-- Analyze trigger event.
-- Analyze call path.
-- Analyze should-have-happened decision.
-- Analyze state owners.
-- Analyze hidden writes.
-- Analyze symptom versus cause.
+- Analyze product or app intent.
+- Analyze target user or operator.
+- Analyze primary workflows.
+- Analyze non-goals.
+- Analyze project type.
+- Analyze ownership map.
+- Analyze data and state assumptions.
+- Analyze external dependencies.
+- Analyze agent constraints.
+- Analyze proof oracle.
+- Analyze initial ADR candidates.
+- Analyze initial ledger units.
+- Analyze review and ship gates.
 - Separate facts found in files from judgments or recommendations.
 - Choose one canonical owner or one canonical artifact whenever the decision concerns ownership.
 
@@ -112,9 +120,10 @@ ledger event when durable state changes
 Possible event types:
 
 ```txt
-root_cause.verified
-proof.receipt.added
-task.updated
+project.spec.created
+proof.oracle.created
+adr.proposed
+task.created
 ```
 
 Fallback path if `plan.ledger` is unavailable:
@@ -141,13 +150,13 @@ Only use capabilities that are available, relevant, and justified by the current
 - Do not create duplicate owners for the same rule.
 - Do not treat chat memory as durable project state.
 - Do not use optional capabilities just because they exist.
-- Do not make a contract more permissive until the observed payload is proven intended.
-- Do not stop at the first downstream parser or type error.
+- Do not produce timelines, staffing plans, or story points unless explicitly requested.
+- Do not start implementation before the proof oracle exists.
 
 ## Final report
 
 ```txt
-Skill: root-cause-finder
+Skill: project-spec-packager
 Decision:
 Changed:
 Proof:

@@ -1,25 +1,26 @@
 ---
-name: root-cause-finder
-description: Trace expected behavior to the first unintended side effect before changing contracts, parsing, types, schemas, null handling, or downstream guards.
+name: code-review-gate
+description: Perform an evidence-first code review gate focused on correctness, security, performance, ownership drift, and missing tests before shipping.
 ---
 
-# Root Cause Finder
+# Code Review Gate
 
 ## Purpose
 
-Stop symptom fixes by proving whether the payload, request, mutation, or side effect should have existed at all.
+Turn review from a style pass into a decision gate with findings, proof, and explicit residual risk.
 
 ## Use when
 
-- debugging protocol errors, null payloads, missing fields, hydration bugs, state ownership bugs, background writes, or restore issues
-- reviewing a patch that changes a contract to accept surprising data
-- finding the first unintended write in a causal chain
+- a feature or patch is ready for review
+- the user asks for review
+- a risky diff needs correctness, security, performance, or test scrutiny
+- a prior finding needs verification
 
 ## Do not use when
 
-- the failure is already proven to be an isolated local typo
-- the user asks only for a broad code review
-- the correct fix is purely test placement
+- the code is not yet implemented
+- the user asks for brainstorming rather than review
+- the required files or diff cannot be inspected
 
 ## Inputs needed
 
@@ -34,13 +35,12 @@ Stop symptom fixes by proving whether the payload, request, mutation, or side ef
 This skill must produce:
 
 ```txt
-expected behavior
-invariant
-causal chain
-first unintended side effect
-root cause
-minimal fix
-architectural follow-up
+ordered findings
+open questions
+test gaps
+evidence inspected
+gate decision
+ledger receipt
 proof/receipt
 ledger event when durable state changes
 ```
@@ -63,12 +63,12 @@ ledger event when durable state changes
 
 ### Phase 2 - Analysis
 
-- Analyze trigger event.
-- Analyze call path.
-- Analyze should-have-happened decision.
-- Analyze state owners.
-- Analyze hidden writes.
-- Analyze symptom versus cause.
+- Analyze diff scope.
+- Analyze behavioral contract.
+- Analyze risky boundaries.
+- Analyze tests run.
+- Analyze unverified assumptions.
+- Analyze fix verification.
 - Separate facts found in files from judgments or recommendations.
 - Choose one canonical owner or one canonical artifact whenever the decision concerns ownership.
 
@@ -112,7 +112,7 @@ ledger event when durable state changes
 Possible event types:
 
 ```txt
-root_cause.verified
+review.completed
 proof.receipt.added
 task.updated
 ```
@@ -129,7 +129,7 @@ docs/specs/*.md
 
 ```txt
 plan.ledger
-docs.latest
+repo.remote
 ```
 
 Only use capabilities that are available, relevant, and justified by the current task.
@@ -141,13 +141,13 @@ Only use capabilities that are available, relevant, and justified by the current
 - Do not create duplicate owners for the same rule.
 - Do not treat chat memory as durable project state.
 - Do not use optional capabilities just because they exist.
-- Do not make a contract more permissive until the observed payload is proven intended.
-- Do not stop at the first downstream parser or type error.
+- Do not lead with summary before findings when issues exist.
+- Do not approve a risky diff because tests happen to pass.
 
 ## Final report
 
 ```txt
-Skill: root-cause-finder
+Skill: code-review-gate
 Decision:
 Changed:
 Proof:

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "instructa.core",
+  "version": "1.0.0",
+  "description": "Lean reusable anti-drift engineering skills for agentic coding.",
+  "license": "MIT",
+  "skills": [
+    "project-spec-packager",
+    "plan-ledger",
+    "architecture-ownership",
+    "duplicate-ownership-audit",
+    "hard-cut",
+    "root-cause-finder",
+    "search-context",
+    "test-ownership",
+    "security-boundary-review",
+    "code-review-gate",
+    "ship-gate",
+    "gitwhat",
+    "git-safe-workflow",
+    "stage-review",
+    "no-mistakes",
+    "package-security-check",
+    "secleak-check",
+    "shellck",
+    "local-health"
+  ],
+  "x-agentrig": {
+    "profile": "core",
+    "listing": {
+      "category": "Instructa Kit"
+    },
+    "publicSkills": [
+      "project-spec-packager",
+      "plan-ledger",
+      "architecture-ownership",
+      "duplicate-ownership-audit",
+      "hard-cut",
+      "root-cause-finder",
+      "search-context",
+      "test-ownership",
+      "security-boundary-review",
+      "code-review-gate",
+      "ship-gate"
+    ],
+    "supportSkills": [
+      "gitwhat",
+      "git-safe-workflow",
+      "stage-review",
+      "no-mistakes",
+      "package-security-check",
+      "secleak-check",
+      "shellck",
+      "local-health"
+    ],
+    "optionalCapabilities": [
+      "plan.ledger",
+      "docs.latest",
+      "repo.remote",
+      "secrets.scan",
+      "supplychain.scan",
+      "shell.lint"
+    ],
+    "aliases": {
+      "app-spec-packager": "project-spec-packager",
+      "find-duplicate-ownership": "duplicate-ownership-audit",
+      "consolidate-test-suites": "test-ownership",
+      "stage-review": "ship-gate",
+      "no-mistakes": "ship-gate"
+    },
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ]
+  }
+}

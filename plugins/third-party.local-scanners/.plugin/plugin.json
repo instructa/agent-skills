@@ -1,0 +1,111 @@
+{
+  "$schema": "https://agentrig.ai/schema/plugin.v1.json",
+  "name": "third-party.local-scanners",
+  "version": "1.0.0",
+  "description": "Curated provider manifest for local secrets, supply-chain and shell lint scanner capabilities.",
+  "license": "MIT",
+  "keywords": [
+    "agentrig",
+    "third-party",
+    "security",
+    "scanners"
+  ],
+  "x-agentrig": {
+    "displayName": "Local Scanners Provider",
+    "kind": "plugin",
+    "profile": "third-party",
+    "owner": "external",
+    "supportLevel": "curated",
+    "listing": {
+      "category": "Third-party Providers"
+    },
+    "source": {
+      "upstreamOwner": "Gitleaks, Trivy, ShellCheck, OSV and package-manager audit tool maintainers",
+      "upstreamSource": "secleak-check / gitleaks / trivy; package-security-check / npm audit / pnpm audit / OSV; shellck / ShellCheck",
+      "wrapperOnly": true
+    },
+    "providesCapabilities": {
+      "secrets.scan": {
+        "type": "scanner",
+        "requiredByCore": false,
+        "riskLevel": "high",
+        "fallback": "Manual secret scan with reviewed local commands and provider-hosted secret protection when available."
+      },
+      "supplychain.scan": {
+        "type": "scanner",
+        "requiredByCore": false,
+        "riskLevel": "high",
+        "fallback": "Manual package/dependency review with package manager audit, OSV, Trivy or GitHub Dependabot."
+      },
+      "shell.lint": {
+        "type": "scanner",
+        "requiredByCore": false,
+        "riskLevel": "medium",
+        "fallback": "Manual shell script review with ShellCheck or equivalent local linting."
+      }
+    },
+    "providerTargets": [
+      "codex",
+      "claude-code",
+      "cursor"
+    ],
+    "install": {
+      "method": "Install the selected local scanner CLIs through the project package manager or system package manager.",
+      "commands": [
+        "agentrig doctor --capability secrets.scan",
+        "agentrig doctor --capability supplychain.scan",
+        "agentrig doctor --capability shell.lint"
+      ],
+      "uninstall": [
+        "Remove scanner CLIs that are no longer needed and remove this provider plugin from the AgentRig install set."
+      ]
+    },
+    "environment": {
+      "required": [],
+      "optional": [
+        "GITHUB_TOKEN",
+        "OSV_API_KEY"
+      ]
+    },
+    "permissions": {
+      "filesystem": [
+        "Project source tree",
+        "Package manifests and lockfiles",
+        "Shell scripts",
+        "Temporary scanner reports"
+      ],
+      "network": [
+        "Optional vulnerability databases and GitHub security APIs when explicitly enabled"
+      ],
+      "runsLocalCode": true,
+      "approval": "Human approval required before uploading scan results, enabling hosted security changes or running broad filesystem scans."
+    },
+    "transport": {
+      "type": "local-cli",
+      "notes": "Local scanner commands; optional network lookup only when the selected scanner requires it."
+    },
+    "verification": {
+      "lastVerified": "2026-06-04",
+      "cadence": "30d",
+      "smokeTest": "verify/local-scanners-smoke.md"
+    },
+    "security": {
+      "requiresConsent": true,
+      "showsExactCommands": true,
+      "requiresEnvVars": [],
+      "notes": "Scanner commands can read sensitive project files. Default to project scope and show exact commands."
+    },
+    "replacementPolicy": {
+      "capabilities": [
+        "secrets.scan",
+        "supplychain.scan",
+        "shell.lint"
+      ],
+      "replaceWithoutCourseChange": true
+    },
+    "risk": {
+      "level": "high",
+      "notes": "Local scans read source, manifests and possibly secrets; hosted integrations can expose repository metadata."
+    }
+  }
+}
