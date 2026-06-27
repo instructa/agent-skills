@@ -1,3 +1,5 @@
+![Agent Skills banner](publics/agent-skills-banner.webp)
+
 # Agent Skills
 
 A curated source repo for agent skills and plugin bundles.
