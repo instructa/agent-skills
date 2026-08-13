@@ -4,11 +4,7 @@ description: Find, clone, inspect, and summarize high-quality GitHub reference r
 license: MIT
 metadata:
   version: "0.1.0"
-  requires:
-    - gh
-    - git
-    - rg
-    - node
+  requires: "gh, git, rg, node"
 ---
 
 # Search Context

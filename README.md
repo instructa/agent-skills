@@ -4,10 +4,10 @@
 
 A curated source repo for agent skills and plugin bundles.
 
-This repo is organized around the open Agent Skills CLI (`npx skills`) instead of local sync scripts:
+This repo exposes both portable Agent Plugins packages and standalone Agent Skills:
 
-- `plugins/`: plugin manifests that bundle a set of top-level skills (AgentRig distribution is not ready yet — install bundled skills individually for now).
-- `skills/`: all installable skills, both standalone and the ones referenced by a plugin bundle. Each can be listed and installed independently.
+- `plugins/`: Agent Plugins v1 packages. Each package owns its `plugin.json` and bundled `skills/` tree.
+- `skills/`: standalone skills that are not owned by a plugin package.
 - `internal/`: personal or experimental workflows that are not part of the public install surface.
 
 ## Install
@@ -21,19 +21,14 @@ npx skills add instructa/agent-skills --list
 
 Use `-g` for a global install, or omit it for a project-local install. Add `--copy` if you prefer copied files instead of symlinks.
 
-<details>
-<summary>Codex</summary>
-
-Install bundled skills from `regenrek.agentic-engineer-core`:
+Install the complete Agentic Engineer Core package through AgentRig:
 
 ```bash
-npx skills add instructa/agent-skills --skill architecture-ownership --agent codex
-npx skills add instructa/agent-skills --skill consolidate-test-suites --agent codex
-npx skills add instructa/agent-skills --skill find-duplicate-ownership --agent codex
-npx skills add instructa/agent-skills --skill hard-cut --agent codex
-npx skills add instructa/agent-skills --skill root-cause-finder --agent codex
-npx skills add instructa/agent-skills --skill search-context --agent codex
+npx agentrig plugin install codex agentrig/regenrek.agentic-engineer-core
 ```
+
+<details>
+<summary>Codex</summary>
 
 Install one standalone skill:
 
@@ -58,17 +53,6 @@ npx skills add instructa/agent-skills --skill stage-review --agent codex
 <details>
 <summary>Claude Code</summary>
 
-Install bundled skills from `regenrek.agentic-engineer-core`:
-
-```bash
-npx skills add instructa/agent-skills --skill architecture-ownership --agent claude-code
-npx skills add instructa/agent-skills --skill consolidate-test-suites --agent claude-code
-npx skills add instructa/agent-skills --skill find-duplicate-ownership --agent claude-code
-npx skills add instructa/agent-skills --skill hard-cut --agent claude-code
-npx skills add instructa/agent-skills --skill root-cause-finder --agent claude-code
-npx skills add instructa/agent-skills --skill search-context --agent claude-code
-```
-
 Install one standalone skill:
 
 ```bash
@@ -91,17 +75,6 @@ npx skills add instructa/agent-skills --skill stage-review --agent claude-code
 
 <details>
 <summary>Cursor</summary>
-
-Install bundled skills from `regenrek.agentic-engineer-core`:
-
-```bash
-npx skills add instructa/agent-skills --skill architecture-ownership --agent cursor
-npx skills add instructa/agent-skills --skill consolidate-test-suites --agent cursor
-npx skills add instructa/agent-skills --skill find-duplicate-ownership --agent cursor
-npx skills add instructa/agent-skills --skill hard-cut --agent cursor
-npx skills add instructa/agent-skills --skill root-cause-finder --agent cursor
-npx skills add instructa/agent-skills --skill search-context --agent cursor
-```
 
 Install one standalone skill:
 
@@ -127,14 +100,12 @@ npx skills add instructa/agent-skills --skill stage-review --agent cursor
 
 ### `regenrek.agentic-engineer-core`
 
-Core agentic engineering skills for architecture, debugging, refactoring, and test ownership. Bundled skills live in the top-level `skills/` folder; the plugin manifest (`plugins/regenrek.agentic-engineer-core/.plugin/plugin.json`) declares which ones are part of the bundle. Each skill also has its own `README.md`.
-
-Plugin category: `Development`.
+Core agentic engineering skills for architecture, debugging, refactoring, and test ownership. The complete portable package lives under `plugins/regenrek.agentic-engineer-core/`; its `plugin.json` and nested `skills/` tree conform to Agent Plugins v1 and Agent Skills.
 
 Architecture / Ownership:
 
 - `architecture-ownership`: determine the right runtime, first-fix, and canonical long-term owner.
-- `find-duplicate-ownership`: audit duplicate ownership and hidden second sources of truth.
+- `duplicate-ownership-audit`: audit duplicate ownership and hidden second sources of truth.
 - `hard-cut`: keep one canonical implementation during pre-release refactors.
 
 Debugging / Investigation:
@@ -144,7 +115,7 @@ Debugging / Investigation:
 
 Testing:
 
-- `consolidate-test-suites`: place bug-fix coverage in one owning test layer.
+- `test-ownership`: place bug-fix coverage in one owning test layer.
 
 ### Standalone Skills
 
@@ -170,19 +141,20 @@ These skills are kept as separate artifacts because they are useful independentl
 ```text
 plugins/
   regenrek.agentic-engineer-core/
-    .plugin/plugin.json   # declares which top-level skills are in the bundle
+    plugin.json
     README.md
+    skills/
+      architecture-ownership/
+      duplicate-ownership-audit/
+      hard-cut/
+      root-cause-finder/
+      search-context/
+      test-ownership/
 
 skills/
   app-spec-packager/
-  architecture-ownership/    # bundled in regenrek.agentic-engineer-core
-  consolidate-test-suites/   # bundled in regenrek.agentic-engineer-core
   debug-lldb/
   electron-live-test/
-  find-duplicate-ownership/  # bundled in regenrek.agentic-engineer-core
-  hard-cut/                  # bundled in regenrek.agentic-engineer-core
-  root-cause-finder/         # bundled in regenrek.agentic-engineer-core
-  search-context/            # bundled in regenrek.agentic-engineer-core
   ...
 
 internal/
