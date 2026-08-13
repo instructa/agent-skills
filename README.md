@@ -26,6 +26,7 @@ Cursor, and other Agent Skills clients.
 
 | Category | Skill | Purpose | Install |
 |---|---|---|---|
+| Engineering | [clarify](skills/engineering/clarify/README.md) | Make complex technical material clear and actionable. | `npx skills add instructa/agent-skills --skill clarify` |
 | Engineering | [architecture-ownership](skills/engineering/architecture-ownership/README.md) | Find the right owner for code and behavior. | `npx skills add instructa/agent-skills --skill architecture-ownership` |
 | Engineering | [find-duplicate-ownership](skills/engineering/find-duplicate-ownership/README.md) | Find competing sources of truth. | `npx skills add instructa/agent-skills --skill find-duplicate-ownership` |
 | Engineering | [hard-cut](skills/engineering/hard-cut/README.md) | Replace legacy paths with one canonical implementation. | `npx skills add instructa/agent-skills --skill hard-cut` |
