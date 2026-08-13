@@ -2,167 +2,114 @@
 
 # Agent Skills
 
-A curated source repo for agent skills and plugin bundles.
+A curated collection of independent, reusable skills for coding agents.
 
-This repo exposes both portable Agent Plugins packages and standalone Agent Skills:
-
-- `plugins/`: Agent Plugins v1 packages. Each package owns its `plugin.json` and bundled `skills/` tree.
-- `skills/`: standalone skills that are not owned by a plugin package.
-- `internal/`: personal or experimental workflows that are not part of the public install surface.
+The public skills follow the open Agent Skills layout and are installed with the
+open `skills` CLI. Categories organize the repository without changing skill names
+or installation commands.
 
 ## Install
 
-Use the open Agent Skills CLI. List everything in the repo, then install per skill:
+List all available skills:
 
 ```bash
-# List skills in this repo
 npx skills add instructa/agent-skills --list
 ```
 
-Use `-g` for a global install, or omit it for a project-local install. Add `--copy` if you prefer copied files instead of symlinks.
-
-Install the complete Agentic Engineer Core package through AgentRig:
+Install one skill for a specific agent:
 
 ```bash
-npx agentrig plugin install codex agentrig/regenrek.agentic-engineer-core
+npx skills add instructa/agent-skills --skill architecture-ownership --agent codex
+npx skills add instructa/agent-skills --skill architecture-ownership --agent claude-code
+npx skills add instructa/agent-skills --skill architecture-ownership --agent cursor
 ```
 
-<details>
-<summary>Codex</summary>
-
-Install one standalone skill:
-
-```bash
-npx skills add instructa/agent-skills --skill app-spec-packager --agent codex
-npx skills add instructa/agent-skills --skill debug-lldb --agent codex
-npx skills add instructa/agent-skills --skill electron-live-test --agent codex
-npx skills add instructa/agent-skills --skill gh-repo-bootstrap --agent codex
-npx skills add instructa/agent-skills --skill git-safe-workflow --agent codex
-npx skills add instructa/agent-skills --skill gitwhat --agent codex
-npx skills add instructa/agent-skills --skill go-local-health --agent codex
-npx skills add instructa/agent-skills --skill homebrew-publish --agent codex
-npx skills add instructa/agent-skills --skill no-mistakes --agent codex
-npx skills add instructa/agent-skills --skill package-security-check --agent codex
-npx skills add instructa/agent-skills --skill redesign-my-landingpage --agent codex
-npx skills add instructa/agent-skills --skill secleak-check --agent codex
-npx skills add instructa/agent-skills --skill shellck --agent codex
-npx skills add instructa/agent-skills --skill stage-review --agent codex
-```
-</details>
-
-<details>
-<summary>Claude Code</summary>
-
-Install one standalone skill:
-
-```bash
-npx skills add instructa/agent-skills --skill app-spec-packager --agent claude-code
-npx skills add instructa/agent-skills --skill debug-lldb --agent claude-code
-npx skills add instructa/agent-skills --skill electron-live-test --agent claude-code
-npx skills add instructa/agent-skills --skill gh-repo-bootstrap --agent claude-code
-npx skills add instructa/agent-skills --skill git-safe-workflow --agent claude-code
-npx skills add instructa/agent-skills --skill gitwhat --agent claude-code
-npx skills add instructa/agent-skills --skill go-local-health --agent claude-code
-npx skills add instructa/agent-skills --skill homebrew-publish --agent claude-code
-npx skills add instructa/agent-skills --skill no-mistakes --agent claude-code
-npx skills add instructa/agent-skills --skill package-security-check --agent claude-code
-npx skills add instructa/agent-skills --skill redesign-my-landingpage --agent claude-code
-npx skills add instructa/agent-skills --skill secleak-check --agent claude-code
-npx skills add instructa/agent-skills --skill shellck --agent claude-code
-npx skills add instructa/agent-skills --skill stage-review --agent claude-code
-```
-</details>
-
-<details>
-<summary>Cursor</summary>
-
-Install one standalone skill:
-
-```bash
-npx skills add instructa/agent-skills --skill app-spec-packager --agent cursor
-npx skills add instructa/agent-skills --skill debug-lldb --agent cursor
-npx skills add instructa/agent-skills --skill electron-live-test --agent cursor
-npx skills add instructa/agent-skills --skill gh-repo-bootstrap --agent cursor
-npx skills add instructa/agent-skills --skill git-safe-workflow --agent cursor
-npx skills add instructa/agent-skills --skill gitwhat --agent cursor
-npx skills add instructa/agent-skills --skill go-local-health --agent cursor
-npx skills add instructa/agent-skills --skill homebrew-publish --agent cursor
-npx skills add instructa/agent-skills --skill no-mistakes --agent cursor
-npx skills add instructa/agent-skills --skill package-security-check --agent cursor
-npx skills add instructa/agent-skills --skill redesign-my-landingpage --agent cursor
-npx skills add instructa/agent-skills --skill secleak-check --agent cursor
-npx skills add instructa/agent-skills --skill shellck --agent cursor
-npx skills add instructa/agent-skills --skill stage-review --agent cursor
-```
-</details>
+Use `-g` for a global installation. Omit it for a project-local installation.
+Add `--copy` when copied files are preferable to symlinks.
 
 ## Skills
 
-### `regenrek.agentic-engineer-core`
+### Engineering
 
-Core agentic engineering skills for architecture, debugging, refactoring, and test ownership. The complete portable package lives under `plugins/regenrek.agentic-engineer-core/`; its `plugin.json` and nested `skills/` tree conform to Agent Plugins v1 and Agent Skills.
+- `architecture-ownership`: determine the runtime, first-fix, and canonical long-term owner.
+- `find-duplicate-ownership`: find hidden second sources of truth and contract drift.
+- `hard-cut`: replace draft compatibility paths with one canonical implementation.
+- `root-cause-finder`: trace downstream failures to the first unintended side effect.
+- `consolidate-test-suites`: place regression coverage in one owning test layer.
+- `search-context`: find and evaluate high-quality reference repositories before implementing.
 
-Architecture / Ownership:
+### Go
 
-- `architecture-ownership`: determine the right runtime, first-fix, and canonical long-term owner.
-- `duplicate-ownership-audit`: audit duplicate ownership and hidden second sources of truth.
-- `hard-cut`: keep one canonical implementation during pre-release refactors.
+- `go-local-health`: run local Go tests, coverage, and lint health checks.
 
-Debugging / Investigation:
+### Electron
 
-- `root-cause-finder`: trace downstream errors to the first unintended side effect.
-- `search-context`: search external repositories and reference code before guessing.
+- `electron-live-test`: live-test Electron apps with native-devtools-mcp and CDP.
 
-Testing:
+### Security
 
-- `test-ownership`: place bug-fix coverage in one owning test layer.
+- `secleak-check`: scan for secrets, vulnerabilities, and risky repository paths.
+- `package-security-check`: audit JavaScript dependency and supply-chain risks.
 
-### Standalone Skills
+### Shell
 
-These skills are kept as separate artifacts because they are useful independently. Each skill folder also has its own `README.md`.
+- `shellck`: run ShellCheck over repository shell scripts.
 
-- `app-spec-packager`: create production-ready app specification packages for coding agents.
-- `debug-lldb`: capture and analyze LLDB/GDB backtraces for hangs and high-CPU loops.
-- `electron-live-test`: live-test headed Electron apps with native-devtools-mcp and CDP.
-- `gh-repo-bootstrap`: create a GitHub repo and bootstrap a local project.
-- `git-safe-workflow`: inspect, stage, commit, and push safely when explicitly requested.
-- `gitwhat`: print a compact git workspace snapshot.
-- `go-local-health`: run local Go test, coverage, and lint health checks.
-- `homebrew-publish`: prepare Homebrew tap formulae for CLI/TUI releases.
-- `no-mistakes`: use the no-mistakes gated push workflow.
-- `package-security-check`: run a reusable JavaScript supply-chain security baseline.
-- `redesign-my-landingpage`: build and critique shadcn/Vite/Iconify landing pages.
-- `secleak-check`: run BetterLeaks/Trivy scans and add secret-leak guardrails.
-- `shellck`: run shellcheck over shell scripts.
-- `stage-review`: commit a finished feature locally, then run it through no-mistakes.
+### Git
+
+- `gitwhat`: print a concise branch, status, repository, and worktree snapshot.
+
+### Release
+
+- `homebrew-publish`: prepare and validate Homebrew releases for CLI and TUI projects.
+
+### Specifications
+
+- `app-spec-packager`: create production-ready specification packages for coding agents.
+
+### Design
+
+- `redesign-my-landingpage`: build and critique React, Vite, Tailwind, and shadcn/ui landing pages.
 
 ## Repository Layout
 
+Each category is one level below `skills/`, which keeps every skill discoverable by
+the open CLI:
+
 ```text
-plugins/
-  regenrek.agentic-engineer-core/
-    plugin.json
-    README.md
-    skills/
-      architecture-ownership/
-      duplicate-ownership-audit/
-      hard-cut/
-      root-cause-finder/
-      search-context/
-      test-ownership/
-
 skills/
-  app-spec-packager/
-  debug-lldb/
-  electron-live-test/
-  ...
-
-internal/
-  codex-analysis/
-  codex-sandbox/
-  create-new-static-website/
-  pr-commiter/
+  engineering/
+    architecture-ownership/
+    find-duplicate-ownership/
+    hard-cut/
+    root-cause-finder/
+    consolidate-test-suites/
+    search-context/
+  go/
+    go-local-health/
+  electron/
+    electron-live-test/
+  security/
+    secleak-check/
+    package-security-check/
+  shell/
+    shellck/
+  git/
+    gitwhat/
+  release/
+    homebrew-publish/
+  specs/
+    app-spec-packager/
+  design/
+    redesign-my-landingpage/
 ```
+
+## Design Principles
+
+- Canonical engineering skills are product-neutral and have no workflow-platform dependency.
+- Tool-specific skills may depend only on tools required for their stated purpose.
+- Skills do not require project ledgers, provider capabilities, or proprietary installation flows.
+- Public skill names remain stable even when repository categories change.
 
 ## Links
 
