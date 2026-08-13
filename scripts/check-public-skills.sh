@@ -4,7 +4,7 @@ set -euo pipefail
 repo_root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 cd "$repo_root"
 
-skill_files=$(find skills -type f -name SKILL.md | sort)
+skill_files=$(git ls-files | awk '/^skills\/.*\/SKILL\.md$/' | sort)
 
 if [[ -z "$skill_files" ]]; then
   echo "No public skills found under skills/." >&2

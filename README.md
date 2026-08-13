@@ -2,118 +2,55 @@
 
 # Agent Skills
 
-A curated collection of independent, reusable skills for coding agents.
-
-The public skills follow the open Agent Skills layout and are installed with the
-open `skills` CLI. Categories organize the repository without changing skill names
-or installation commands.
+Independent, reusable skills for coding agents. Install them with the open
+`skills` CLI—no custom installer required.
 
 ## Install
 
-List all available skills:
+List all skills:
 
 ```bash
 npx skills add instructa/agent-skills --list
 ```
 
-Install one skill for a specific agent:
+Install one skill:
 
 ```bash
 npx skills add instructa/agent-skills --skill architecture-ownership --agent codex
-npx skills add instructa/agent-skills --skill architecture-ownership --agent claude-code
-npx skills add instructa/agent-skills --skill architecture-ownership --agent cursor
 ```
 
-Use `-g` for a global installation. Omit it for a project-local installation.
-Add `--copy` when copied files are preferable to symlinks.
+Use `-g` for a global installation. Supported agents include Codex, Claude Code,
+Cursor, and other Agent Skills clients.
 
-## Skills
+## Available Skills
 
-### Engineering
+| Category | Skill | Purpose |
+|---|---|---|
+| Engineering | `architecture-ownership` | Find the right owner for code and behavior. |
+| Engineering | `find-duplicate-ownership` | Find competing sources of truth. |
+| Engineering | `hard-cut` | Replace legacy paths with one canonical implementation. |
+| Engineering | `root-cause-finder` | Trace failures to their first unintended cause. |
+| Engineering | `consolidate-test-suites` | Put regression coverage in the owning test layer. |
+| Engineering | `search-context` | Find useful reference repositories before implementing. |
+| Go | `go-local-health` | Run Go tests, coverage, and lint checks. |
+| Electron | `electron-live-test` | Test Electron apps with native-devtools-mcp and CDP. |
+| Security | `secleak-check` | Scan for secrets and repository risks. |
+| Security | `package-security-check` | Audit JavaScript supply-chain risks. |
+| Shell | `shellck` | Run ShellCheck on repository scripts. |
+| Git | `gitwhat` | Show a concise repository and worktree status. |
+| Release | `homebrew-publish` | Prepare and validate Homebrew releases. |
+| Specs | `app-spec-packager` | Create implementation-ready application specifications. |
+| Design | `redesign-my-landingpage` | Build and improve React landing pages. |
 
-- `architecture-ownership`: determine the runtime, first-fix, and canonical long-term owner.
-- `find-duplicate-ownership`: find hidden second sources of truth and contract drift.
-- `hard-cut`: replace draft compatibility paths with one canonical implementation.
-- `root-cause-finder`: trace downstream failures to the first unintended side effect.
-- `consolidate-test-suites`: place regression coverage in one owning test layer.
-- `search-context`: find and evaluate high-quality reference repositories before implementing.
+## Principles
 
-### Go
-
-- `go-local-health`: run local Go tests, coverage, and lint health checks.
-
-### Electron
-
-- `electron-live-test`: live-test Electron apps with native-devtools-mcp and CDP.
-
-### Security
-
-- `secleak-check`: scan for secrets, vulnerabilities, and risky repository paths.
-- `package-security-check`: audit JavaScript dependency and supply-chain risks.
-
-### Shell
-
-- `shellck`: run ShellCheck over repository shell scripts.
-
-### Git
-
-- `gitwhat`: print a concise branch, status, repository, and worktree snapshot.
-
-### Release
-
-- `homebrew-publish`: prepare and validate Homebrew releases for CLI and TUI projects.
-
-### Specifications
-
-- `app-spec-packager`: create production-ready specification packages for coding agents.
-
-### Design
-
-- `redesign-my-landingpage`: build and critique React, Vite, Tailwind, and shadcn/ui landing pages.
-
-## Repository Layout
-
-Each category is one level below `skills/`, which keeps every skill discoverable by
-the open CLI:
-
-```text
-skills/
-  engineering/
-    architecture-ownership/
-    find-duplicate-ownership/
-    hard-cut/
-    root-cause-finder/
-    consolidate-test-suites/
-    search-context/
-  go/
-    go-local-health/
-  electron/
-    electron-live-test/
-  security/
-    secleak-check/
-    package-security-check/
-  shell/
-    shellck/
-  git/
-    gitwhat/
-  release/
-    homebrew-publish/
-  specs/
-    app-spec-packager/
-  design/
-    redesign-my-landingpage/
-```
-
-## Design Principles
-
-- Canonical engineering skills are product-neutral and have no workflow-platform dependency.
-- Tool-specific skills may depend only on tools required for their stated purpose.
-- Skills do not require project ledgers, provider capabilities, or proprietary installation flows.
-- Public skill names remain stable even when repository categories change.
+- Public skills are installed with `npx skills`.
+- Core engineering skills do not depend on PlanDB, Planr, Instructa, or AgentRig.
+- Tool-specific skills only require tools needed for their stated purpose.
+- Category folders do not change public skill names.
 
 ## Links
 
 - X/Twitter: [@kregenrek](https://x.com/kregenrek)
 - Bluesky: [@kevinkern.dev](https://bsky.app/profile/kevinkern.dev)
-- Learn Cursor AI: [Ultimate Cursor Course](https://www.instructa.ai/en/cursor-ai)
-- Learn to build software with AI: [AI Builder Hub](https://www.instructa.ai)
+- [Instructa](https://www.instructa.ai)
