@@ -1,29 +1,32 @@
 # Find Duplicate Ownership
 
-Find duplicate ownership, hidden second sources of truth, and contract drift in layered codebases.
+Duplicate code is usually easy to find. Duplicate ownership is not. The frontend clamps
+a value, the API applies a default, and restore code normalizes it again. Each piece looks
+reasonable on its own, but together they mean that three places decide what the value is
+allowed to be.
+
+I use this skill when a feature survives through glue code: repeated validation, mappings
+between persisted and runtime state, helpers with different names but the same job, or
+business rules hiding in a cache or query layer. I also run it occasionally across a
+larger domain with read-only subagents, because these second owners are easy to miss when
+you only inspect the file involved in the current bug.
+
+The point is not to report every repeated transformation. A protocol adapter may need to
+translate wire data, and UI formatting belongs near the UI. I want the skill to separate
+those real boundaries from rules that can drift. For each real problem it should name the
+competing owners, choose one winner, and say what can be deleted.
+
+```text
+$find-duplicate-ownership Audit session restore and persistence. Find every place that
+owns defaults or repairs the stored shape, then name the canonical owner.
+```
+
+The skill also includes [prompts for broader audits](references/audit-prompts.md).
 
 ## Install
 
 ```bash
-# Codex
-npx skills add instructa/agent-skills --skill find-duplicate-ownership --agent codex
-
-# Claude Code
-npx skills add instructa/agent-skills --skill find-duplicate-ownership --agent claude-code
-
-# Cursor
-npx skills add instructa/agent-skills --skill find-duplicate-ownership --agent cursor
+npx skills add instructa/agent-skills --skill find-duplicate-ownership -g
 ```
 
-## Use When
-
-- A system may have duplicate validation, normalization, defaulting, canonicalization, or persistence mapping.
-- Frontend, backend, shared core, and adapter layers may each be owning the same rule.
-- You need to classify whether duplication is a real SSOT bug, local dedupe cleanup, legitimate boundary adapter, or legitimate domain constraint.
-
-## Included Resources
-
-- `agents/` contains optional read-only subagent definitions for taxonomy mapping, exploration, and SSOT judging.
-- `references/audit-prompts.md` contains reusable prompt patterns.
-
-See `SKILL.md` for the full agent workflow.
+Remove `-g` for a project-only installation.

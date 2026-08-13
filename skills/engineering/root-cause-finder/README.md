@@ -1,28 +1,29 @@
 # Root Cause Finder
 
-Trace expected behavior to the first unintended side effect before changing contracts, parsing, schemas, or types.
+When an API rejects a null field, the obvious fix is to make the parser accept null. But
+sometimes that request should never have been sent. A startup hook wrote stale state, a
+restore callback ran twice, or a retry continued after the operation had already ended.
+Relaxing the parser makes the error disappear while the actual bug stays alive.
+
+I use `root-cause-finder` whenever the proposed fix changes a schema, type, or contract to
+accept something unexpected. It makes the agent trace the path from the intended user
+action to the failing request and find the first thing that should not have happened.
+
+This has been especially useful for hydration problems, background writes, mirrored
+stores, retries, and lifecycle code. Those paths produce failures several layers away
+from their origin, which makes the last error in the log look more important than it is.
+A good result shows the causal chain, identifies the first wrong side effect, and says
+which layer should be fixed before touching the downstream contract.
+
+```text
+$root-cause-finder The API rejects a null project ID during restore. Prove why that
+request is sent before changing the API schema.
+```
 
 ## Install
 
 ```bash
-# Codex
-npx skills add instructa/agent-skills --skill root-cause-finder --agent codex
-
-# Claude Code
-npx skills add instructa/agent-skills --skill root-cause-finder --agent claude-code
-
-# Cursor
-npx skills add instructa/agent-skills --skill root-cause-finder --agent cursor
+npx skills add instructa/agent-skills --skill root-cause-finder -g
 ```
 
-## Use When
-
-- Debugging protocol errors, deserialization failures, null payloads, missing fields, restore issues, or hydration bugs.
-- A downstream error may only be a symptom of an unintended request, mutation, restore, retry, observer, or background write.
-- Reviewing code where a visible failure might hide an upstream state ownership bug.
-
-## Core Rule
-
-Before fixing the error, prove whether the code path that produced it was intended.
-
-See `SKILL.md` for the full agent workflow.
+Remove `-g` for a project-only installation.

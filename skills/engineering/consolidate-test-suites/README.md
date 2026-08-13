@@ -1,28 +1,29 @@
 # Consolidate Test Suites
 
-Decide where bug-fix coverage belongs and keep each invariant in one owning test layer.
+Every fixed bug seems to invite one more regression file. It feels safe in the moment,
+but after a while the same rule is tested in a unit test, an integration test, and an
+end-to-end test. Nobody knows which one really protects the behavior, and simple changes
+require updating all three.
+
+I use `consolidate-test-suites` after fixing a bug, before asking the agent to add tests.
+The first question should be which rule failed, not which test file is easiest to create.
+Once that rule is clear, the skill finds the lowest test layer that can prove it and tries
+to place the case in an existing suite.
+
+This is especially useful when a repository has accumulated ticket-shaped files such as
+`issue-423-regression.test.ts`. A useful result tells me which existing test should own
+the case and which weaker duplicates can go. Sometimes more than one layer is justified,
+but then each test needs to protect a genuinely different failure mode.
+
+```text
+$consolidate-test-suites This restore bug is fixed. Where should its regression coverage
+live, and which existing tests can it replace?
+```
 
 ## Install
 
 ```bash
-# Codex
-npx skills add instructa/agent-skills --skill consolidate-test-suites --agent codex
-
-# Claude Code
-npx skills add instructa/agent-skills --skill consolidate-test-suites --agent claude-code
-
-# Cursor
-npx skills add instructa/agent-skills --skill consolidate-test-suites --agent cursor
+npx skills add instructa/agent-skills --skill consolidate-test-suites -g
 ```
 
-## Use When
-
-- A bug fix or architectural change needs test coverage.
-- You need to choose between unit, integration, and end-to-end ownership.
-- Existing tests overlap and weaker duplicates should be merged or removed.
-
-## Core Rule
-
-Identify the invariant first, then place it in the lowest test layer that truly owns and proves that rule. Prefer existing canonical suites and existing files.
-
-See `SKILL.md` for the full agent workflow.
+Remove `-g` for a project-only installation.
