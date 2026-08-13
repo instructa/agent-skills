@@ -27,12 +27,6 @@ Cursor, and other Agent Skills clients.
 
 ## Available Skills
 
-Stars show how often I have actually used a skill in distinct local Codex sessions:
-`★★★★★` 100+, `★★★★☆` 25–99, `★★★☆☆` 10–24, `★★☆☆☆` 2–9, and
-`★☆☆☆☆` 0–1. The scan includes my main, Kevin, and benchmark profiles through
-August 13, 2026, and groups direct predecessors that were renamed. This is maintainer
-usage, not a quality score—specialized skills naturally appear less often.
-
 ### Engineering
 
 | Skill | Purpose | Usage | Install |
@@ -93,6 +87,10 @@ usage, not a quality score—specialized skills naturally appear less often.
 | Skill | Purpose | Usage | Install |
 |---|---|---|---|
 | [redesign-my-landingpage](skills/design/redesign-my-landingpage/README.md) | Build and improve React landing pages. | `★☆☆☆☆` · 1 session | `npx skills add instructa/agent-skills --skill redesign-my-landingpage` |
+
+### Usage legend
+
+`★★★★★` 100+ sessions · `★★★★☆` 25–99 · `★★★☆☆` 10–24 · `★★☆☆☆` 2–9 · `★☆☆☆☆` 0–1
 
 ## Principles
 
