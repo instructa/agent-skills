@@ -1,0 +1,4 @@
+interface:
+  display_name: "Delegate to Grok"
+  short_description: "Ask Grok 4.6 xhigh for review or implementation"
+  default_prompt: "Use $delegate-grok to ask Grok 4.6 xhigh for an independent review of the current task."

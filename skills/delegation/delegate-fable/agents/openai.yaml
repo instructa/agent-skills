@@ -1,0 +1,4 @@
+interface:
+  display_name: "Delegate to Fable"
+  short_description: "Delegate review or implementation work to Fable"
+  default_prompt: "Use $delegate-fable to ask Fable to review the current task through Herdr."

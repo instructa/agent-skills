@@ -39,6 +39,13 @@ Cursor, and other Agent Skills clients.
 | [search-context](skills/engineering/search-context/README.md) | Find useful reference repositories before implementing. | `★★☆☆☆` · 6 sessions | `npx skills add instructa/agent-skills --skill search-context` |
 | [clarify](skills/engineering/clarify/README.md) | Make complex technical material clear and actionable. | `★★☆☆☆` · 2 sessions | `npx skills add instructa/agent-skills --skill clarify` |
 
+### Delegation
+
+| Skill | Purpose | Usage | Install |
+|---|---|---|---|
+| [delegate-fable](skills/delegation/delegate-fable/README.md) | Hand a review or bounded implementation to Fable through Herdr. | `★★☆☆☆` · 9 sessions | `npx skills add instructa/agent-skills --skill delegate-fable` |
+| [delegate-grok](skills/delegation/delegate-grok/README.md) | Hand a review or bounded implementation to Grok through Herdr. | `★★☆☆☆` · 3 sessions | `npx skills add instructa/agent-skills --skill delegate-grok` |
+
 ### Security
 
 | Skill | Purpose | Usage | Install |
