@@ -43,8 +43,8 @@ Cursor, and other Agent Skills clients.
 
 | Skill | Purpose | Usage | Install |
 |---|---|---|---|
-| [delegate-fable](skills/delegation/delegate-fable/README.md) | Hand a review or bounded implementation to Fable through Herdr. | `★★★☆☆` · 11 sessions / 130 calls | `npx skills add instructa/agent-skills --skill delegate-fable` |
-| [delegate-grok](skills/delegation/delegate-grok/README.md) | Hand a review or bounded implementation to Grok through Herdr. | `★★☆☆☆` · 3 sessions / 47 calls | `npx skills add instructa/agent-skills --skill delegate-grok` |
+| [delegate-fable](skills/delegation/delegate-fable/README.md) | Hand a review or bounded implementation to Fable through Herdr. | `★★★☆☆` · 11 sessions · 130 calls | `npx skills add instructa/agent-skills --skill delegate-fable` |
+| [delegate-grok](skills/delegation/delegate-grok/README.md) | Hand a review or bounded implementation to Grok through Herdr. | `★★☆☆☆` · 3 sessions · 47 calls | `npx skills add instructa/agent-skills --skill delegate-grok` |
 
 ### Security
 
