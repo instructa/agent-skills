@@ -1,0 +1,4 @@
+interface:
+  display_name: "Delegate to Sol"
+  short_description: "Delegate reviews or implementation work to Sol"
+  default_prompt: "Use $delegate-sol to ask Sol for a context-rich independent review."
