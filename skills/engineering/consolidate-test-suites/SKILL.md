@@ -1,6 +1,6 @@
 ---
 name: consolidate-test-suites
-description: Decide exactly where bug-fix test coverage belongs. Use before adding, moving, or deleting tests after a bug fix or architectural change. Select one owning layer, reuse existing canonical suites, block redundant or weakly placed tests, and remove weaker duplicates.
+description: Decide where durable test coverage belongs and clean up temporary test probes. Use while testing a bug fix or architectural change, or before finishing work that added tests, fixtures, snapshots, diagnostics, or temporary assertions. Select one owning layer, reuse canonical suites, merge unique signal, and remove task-created probe residue without disturbing pre-existing work.
 ---
 
 # Consolidate Test Suites
@@ -11,8 +11,14 @@ Definitions:
 - Invariant: the rule that must stay true.
 - Owning layer: the lowest layer that truly owns and can prove that rule.
 - Canonical suite: the normal existing suite for that owning layer.
+- Probe: temporary test code, fixture, script, snapshot, diagnostic, assertion,
+  instrumentation, or helper created to investigate or reproduce one task.
 
 Default: reuse an existing canonical suite. Do not create a new standalone regression test unless the exception rule below allows it.
+
+Probes are useful working material, not permanent coverage by default. Before
+finishing, classify every probe created for the current task as `PROMOTE`,
+`MERGE`, or `DROP`.
 
 ## Hard Rules
 
@@ -24,6 +30,12 @@ Default: reuse an existing canonical suite. Do not create a new standalone regre
 - You MUST NOT add tests that lock in implementation details unless that implementation unit itself owns the invariant.
 - You MUST NOT create a standalone regression test because it is faster or easier.
 - If you cannot name the invariant and the owning layer, STOP. Report that placement is not justified.
+- You MUST remove current-task probes that are not promoted or merged, including
+  temporary code inserted into a permanent test or production file.
+- You MUST preserve tests and dirty changes that predate the current task. Never
+  delete or rewrite them merely to reduce test count.
+- If the request is review-only, report probe dispositions and cleanup
+  recommendations without modifying files.
 
 ## Required Decision Order
 
@@ -63,6 +75,36 @@ A standalone regression-style test is allowed only if ALL are true:
 
 If any condition is false, fold the coverage into the canonical suite.
 
+## Probe Lifecycle
+
+Use temporary probes when they materially help reproduce, diagnose, or falsify
+a suspected bug. Keep their lifecycle lightweight:
+
+1. Before editing tests, inspect the existing test-related status and diff so
+   pre-existing work is distinguishable from task-created probes. Keep this
+   baseline in the working context; do not create tracking files for it.
+2. Once the behavior is accepted, compare each task-created probe with the
+   nearest canonical suite and choose exactly one disposition:
+   - `PROMOTE`: keep the smallest version because it protects a unique durable
+     invariant at the stable owning boundary.
+   - `MERGE`: move only its unique signal into an existing canonical test, then
+     remove the redundant probe.
+   - `DROP`: remove it because it is diagnostic-only, redundant, speculative,
+     implementation-coupled, flaky, slow, or low-value.
+3. Parameterize or extend an existing behavior test when several examples prove
+   the same invariant. Test count and coverage percentage are not reasons to
+   keep another test.
+4. Remove every unpromoted task-created probe before final verification. If its
+   ownership is uncertain, preserve it and report the uncertainty instead of
+   guessing that it is safe to delete.
+
+Promote a probe only when it is deterministic, protects an accepted observable
+contract, would catch a meaningful regression, adds signal not already owned
+elsewhere, and has maintenance cost proportional to its risk. When cheap and
+safe, confirm that the proposed test fails against the faulty behavior and
+passes against the fix; do not build extra infrastructure merely to produce
+that proof.
+
 ## Duplicate Cleanup
 
 After placing coverage:
@@ -72,6 +114,10 @@ After placing coverage:
 3. Merge any unique assertions into that location.
 4. Delete or simplify weaker duplicates.
 5. Rename tests by behavior and owner, not by ticket number or bug history.
+
+Delete or rewrite pre-existing tests only when the task includes suite
+consolidation and duplicate coverage has been demonstrated. Routine bug-fix work
+may clean up only the probes it created.
 
 ## Verification
 
@@ -96,6 +142,10 @@ Action: <reuse existing test | add to existing suite | create file in canonical 
 Why this layer owns it: <one short paragraph>
 
 Duplicates to merge/delete: <list or "none">
+
+Current-task probes: <PROMOTE / MERGE / DROP for each, or "none">
+
+Probe cleanup completed: <removed paths or inline code, or "none">
 
 Verification run: <commands and result>
 
