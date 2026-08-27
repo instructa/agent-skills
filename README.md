@@ -53,6 +53,7 @@ Cursor, and other Agent Skills clients.
 |---|---|---|---|
 | [secleak-check](skills/security/secleak-check/README.md) | Scan for secrets and repository risks. | `★★★☆☆` · 24 sessions | `npx skills add instructa/agent-skills --skill secleak-check` |
 | [package-security-check](skills/security/package-security-check/README.md) | Audit JavaScript supply-chain risks. | `★★★☆☆` · 20 sessions | `npx skills add instructa/agent-skills --skill package-security-check` |
+| [hol-guard](skills/security/hol-guard/README.md) | Protect local coding-agent runtime workflows with HOL Guard. | `★☆☆☆☆` · 0 sessions | `npx skills add instructa/agent-skills --skill hol-guard` |
 
 ### Git
 
