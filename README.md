@@ -111,6 +111,6 @@ Delegation skills also show direct calls because one session can delegate severa
 
 ## Links
 
-- X/Twitter: [@kregenrek](https://x.com/kregenrek)
+- X/Twitter: [@kevinkern](https://x.com/kevinkern)
 - Bluesky: [@kevinkern.dev](https://bsky.app/profile/kevinkern.dev)
 - [Instructa](https://www.instructa.ai)
