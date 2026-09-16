@@ -96,6 +96,12 @@ Cursor, and other Agent Skills clients.
 |---|---|---|---|
 | [redesign-my-landingpage](skills/design/redesign-my-landingpage/README.md) | Build and improve React landing pages. | `★☆☆☆☆` · 1 session | `npx skills add instructa/agent-skills --skill redesign-my-landingpage` |
 
+### 3D & Gaming
+
+| Skill | Purpose | Usage | Install |
+|---|---|---|---|
+| [unity-docs](skills/3d-gaming/unity-docs/README.md) | Resolve Unity API questions using version-matched local sources and cached docs. | New | `npx skills add instructa/agent-skills --skill unity-docs` |
+
 ### Usage legend
 
 `★★★★★` 100+ sessions · `★★★★☆` 25–99 · `★★★☆☆` 10–24 · `★★☆☆☆` 2–9 · `★☆☆☆☆` 0–1

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Unity Docs"
+  short_description: "Verify Unity APIs against the project editor"
+  default_prompt: "Use $unity-docs to verify this Unity API against the project's installed editor and resolved packages."
