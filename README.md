@@ -39,13 +39,19 @@ Cursor, and other Agent Skills clients.
 | [search-context](skills/engineering/search-context/README.md) | Find useful reference repositories before implementing. | `★★☆☆☆` · 6 sessions | `npx skills add instructa/agent-skills --skill search-context` |
 | [clarify](skills/engineering/clarify/README.md) | Make complex technical material clear and actionable. | `★★☆☆☆` · 2 sessions | `npx skills add instructa/agent-skills --skill clarify` |
 
-### Delegation
+### Codex
 
 | Skill | Purpose | Usage | Install |
 |---|---|---|---|
-| [delegate-fable](skills/delegation/delegate-fable/README.md) | Hand a review or bounded implementation to Fable through Herdr. | `★★★☆☆` · 11 sessions · 130 calls | `npx skills add instructa/agent-skills --skill delegate-fable` |
-| [delegate-grok](skills/delegation/delegate-grok/README.md) | Hand a review or bounded implementation to Grok through Herdr. | `★★☆☆☆` · 3 sessions · 47 calls | `npx skills add instructa/agent-skills --skill delegate-grok` |
-| [delegate-sol](skills/delegation/delegate-sol/README.md) | Let Sol review with parallel Terra context or implement a bounded change. | `★☆☆☆☆` · 1 session · 6 calls | `npx skills add instructa/agent-skills --skill delegate-sol` |
+| [claude-designer](skills/codex/claude-designer/README.md) | Let a Luna task supervise Claude Code for UI design while Astra handles sequencing and integration. | New | `npx skills add instructa/agent-skills --skill claude-designer` |
+
+### Herdr
+
+| Skill | Purpose | Usage | Install |
+|---|---|---|---|
+| [delegate-fable](skills/herdr/delegate-fable/README.md) | Hand a review or bounded implementation to Fable through Herdr. | `★★★☆☆` · 11 sessions · 130 calls | `npx skills add instructa/agent-skills --skill delegate-fable` |
+| [delegate-grok](skills/herdr/delegate-grok/README.md) | Hand a review or bounded implementation to Grok through Herdr. | `★★☆☆☆` · 3 sessions · 47 calls | `npx skills add instructa/agent-skills --skill delegate-grok` |
+| [delegate-sol](skills/herdr/delegate-sol/README.md) | Let Sol review with parallel Terra context or implement a bounded change. | `★☆☆☆☆` · 1 session · 6 calls | `npx skills add instructa/agent-skills --skill delegate-sol` |
 
 ### Security
 
@@ -106,7 +112,7 @@ Cursor, and other Agent Skills clients.
 
 `★★★★★` 100+ sessions · `★★★★☆` 25–99 · `★★★☆☆` 10–24 · `★★☆☆☆` 2–9 · `★☆☆☆☆` 0–1
 
-Delegation skills also show direct calls because one session can delegate several tasks.
+Herdr skills also show direct calls because one session can delegate several tasks.
 
 ## Principles
 
