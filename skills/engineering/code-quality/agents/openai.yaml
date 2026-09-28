@@ -1,0 +1,3 @@
+interface:
+  display_name: "Code quality"
+  short_description: "Focused implementation and review checks"

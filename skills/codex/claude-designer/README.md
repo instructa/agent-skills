@@ -1,10 +1,10 @@
 # Claude Designer
 
-Use `$claude-designer` in Codex when a UI task should be built or improved by Claude Code. Astra decides whether design or contracts come first, starts a separate GPT-6 Luna max task, and continues independent work. Luna supervises Claude Opus 5.5, checks the result, and reports back for integration.
+Use `$claude-designer` in Codex when a UI task should be built or improved by Claude Code. Astra chooses whether design or contracts come first, calls Claude Code directly in the current task, then reviews and integrates the result.
 
-The created task is titled `<Area> · <Design scope> · Luna→Claude`. See [SKILL.md](SKILL.md) for the workflow and [Luna worker guide](references/luna-worker.md) for the Claude invocation.
+Astra checks the Claude process at five-minute intervals until it finishes. See [SKILL.md](SKILL.md) for the workflow and [the direct Claude guide](references/direct-claude-workflow.md) for invocation and review details.
 
-Requires Codex desktop task tools and an authenticated Claude Code CLI. Install with:
+Requires an authenticated Claude Code CLI.
 
 ```bash
 npx skills add instructa/agent-skills --skill claude-designer -g

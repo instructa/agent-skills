@@ -38,12 +38,20 @@ Cursor, and other Agent Skills clients.
 | [find-duplicate-ownership](skills/engineering/find-duplicate-ownership/README.md) | Find competing sources of truth. | `★★★★☆` · 77 sessions | `npx skills add instructa/agent-skills --skill find-duplicate-ownership` |
 | [search-context](skills/engineering/search-context/README.md) | Find useful reference repositories before implementing. | `★★☆☆☆` · 6 sessions | `npx skills add instructa/agent-skills --skill search-context` |
 | [clarify](skills/engineering/clarify/README.md) | Make complex technical material clear and actionable. | `★★☆☆☆` · 2 sessions | `npx skills add instructa/agent-skills --skill clarify` |
+| [lean-ci](skills/engineering/lean-ci/README.md) | Right-size CI from measured run data instead of adding pipeline machinery. | New | `npx skills add instructa/agent-skills --skill lean-ci` |
+| [code-quality](skills/engineering/code-quality/README.md) | Check framework fit, data safety and meaningful verification. | New | `npx skills add instructa/agent-skills --skill code-quality` |
 
 ### Codex
 
 | Skill | Purpose | Usage | Install |
 |---|---|---|---|
-| [claude-designer](skills/codex/claude-designer/README.md) | Let a Luna task supervise Claude Code for UI design while Astra handles sequencing and integration. | New | `npx skills add instructa/agent-skills --skill claude-designer` |
+| [claude-designer](skills/codex/claude-designer/README.md) | Let Astra call Claude Code directly for UI design, then review and integrate the result. | New | `npx skills add instructa/agent-skills --skill claude-designer` |
+
+### Claude Code
+
+| Skill | Purpose | Usage | Install |
+|---|---|---|---|
+| [codex-reviewer](skills/claude/codex-reviewer/README.md) | Have Astra review a change while Claude implements, tests and corrects it. | New | `npx skills add instructa/agent-skills --skill codex-reviewer -g -a claude-code` |
 
 ### Herdr
 

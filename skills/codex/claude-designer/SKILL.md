@@ -1,54 +1,36 @@
 ---
 name: claude-designer
-description: "Delegate UI/UX design or frontend implementation to Claude Code through a separate GPT-6 Luna max task, with Astra owning sequencing and integration. Use when the user invokes $claude-designer or requests this delegated design workflow."
+description: "Use Claude Code directly from Astra's current task to design or implement UI/UX and frontend work, with Astra owning sequencing, review, and integration. Use when the user invokes $claude-designer or requests this workflow."
 ---
 
 # Claude Designer
 
-Keep expensive architectural work in the parent task. Use a separate, user-visible Luna task to supervise Claude's design implementation and verification. This skill supports existing interfaces and new interfaces requested by the user; it does not prescribe a framework.
+Astra handles the workflow in the current task and calls Claude Code directly. Do not create or route through an intermediary Codex task. This skill supports existing interfaces and new interfaces; it does not prescribe a framework.
 
-## Parent: choose the sequence
+## Choose the sequence
 
-The intended parent is Astra. Do not change the current task's model automatically. Inspect enough of the user journey, existing UI, repository instructions, and data contracts to decide:
+Inspect enough of the user journey, repository instructions, UI, and data contracts to choose:
 
-- **Design first:** the interaction, information hierarchy, or product direction is uncertain. Delegate a prototype or design implementation with explicitly isolated fixtures, then use its requirements to guide backend work.
-- **Contracts first:** calculations, permissions, persistence, or API semantics determine the interface. Establish the necessary contracts before asking Claude to integrate them. Do not build speculative APIs merely to unblock cosmetic work.
-- **Parallel:** the UI can use an agreed contract while Astra implements the backend in separate files/checkouts. Identify who owns each shared file and integration step.
+- **Design first:** interaction, information hierarchy, or product direction is uncertain. Ask Claude to implement a bounded prototype using clearly isolated fixtures, then use its findings to guide backend work.
+- **Contracts first:** calculations, permissions, persistence, or API semantics determine the interface. Establish those contracts before asking Claude to integrate them. Do not create speculative APIs just to unblock cosmetic work.
+- **Parallel:** the UI can use an agreed contract while Astra works on backend or domain files. Define file ownership and integration points before either side edits shared files.
 
-State the chosen sequence and its reason briefly. Give Luna a concrete outcome, not a request to rediscover the whole project. Astra retains architectural decisions, backend/domain ownership, and final integration unless the user explicitly assigns them otherwise.
+State the sequence and reason briefly. Astra keeps architectural decisions, backend/domain ownership, review, and final integration unless the user explicitly assigns them otherwise.
 
-## Dispatch a separate Luna task
+## Call Claude directly
 
-An explicit invocation of this skill requests a new task. Automatic skill discovery alone is not permission to create one: if the user has not requested a new task or this workflow, propose using the skill rather than silently creating a task.
+An explicit `$claude-designer` invocation authorizes this workflow. Use the current checkout by default and keep the Claude run in Astra's current task. Do not create a separate Codex task or worktree just to supervise Claude. Use an isolated checkout only when the requested work needs one and the relevant state can be made available without silently copying the entire dirty tree.
 
-Use the Codex app's `list_projects`, then `create_thread` with:
+Read [the direct Claude workflow](references/direct-claude-workflow.md). In brief:
 
-- `model: "gpt-6-luna"`
-- `thinking: "max"`
-- `title: "<Area> · <Design scope> · Luna→Claude"`, following the naming rules below.
-- The matching project ID. Default to `environment: {type: "worktree"}` for Git projects and `local` otherwise. Use the existing checkout directly only when the user explicitly requests that arrangement. Use `projectless` for a requested standalone artifact without a project.
+- Prepare a bounded brief with the requested outcome, audience, main journey, references, scope, acceptance criteria, agreed contracts, unresolved dependencies, allowed paths, and relevant project instructions.
+- Check Claude Code's installed version, supported flags, and authentication status without printing credentials. Do not install, update, log in, or switch models silently.
+- Start Claude Code from the relevant checkout using its CLI and the reviewed brief. Keep the process handle and Claude session ID in this task; reuse the same session for focused corrections.
+- Prefer a verified, directly exposed Claude worker tool that stays pending until completion. Do not wrap it in Code Mode or replace completion waiting with repeated sleep/status/log-tail responses. If that integration is unavailable, disclose the limitation before starting; the CLI fallback is not verified polling-free. Follow the completion-wait section in the direct workflow reference.
+- If a prerequisite or permission blocks the run, report the concrete blocker. Do not retry the same denied operation repeatedly or bypass permissions without explicit authorization.
 
-Use concise English titles. Reuse the parent's product area and name the concrete design scope, such as `Invoices · Editor Design · Luna→Claude` for a parent named `Invoices · Editor & API`, or `Settings · Navigation · Luna→Claude`. Keep model versions, effort levels, and status out of titles. Preserve the existing parent title unless the user requests renaming it. Continue corrections in the same child task rather than creating titles such as “Design v2” or “Final fix”.
+## Review and integrate
 
-Follow the actual tool schema. A worktree starts at the project's default branch unless the user explicitly requests a particular starting state. Do not assume it contains the parent's branch or uncommitted changes. Before implementation, Luna must verify the required files and contracts exist in its checkout. Include missing contracts as explicit design inputs or defer integration until dependencies are available; report an incompatible baseline to Astra before editing. Never silently copy the parent's entire dirty tree.
+Inspect Claude's actual diff, preserve unrelated changes, and verify the requested user journey against the agreed contracts. Use the project's existing checks when appropriate and inspect the relevant responsive, keyboard, and loading/empty/error/success states. Keep fixtures clearly marked. Save useful screenshots or preview details when available. Report what was verified and what remains unverified; a successful build alone does not establish design acceptance.
 
-The dispatch prompt must contain:
-
-- User request, intended audience, primary workflow, relevant references/screenshots, scope, and acceptance criteria.
-- Sequencing decision, implementation versus prototype mode, authoritative data/API contracts, and any unresolved dependencies.
-- Relevant paths, repository instructions, file ownership, and existing preview location if usable from the worker's checkout.
-- Parent task ID and host when available from actual task context; never invent IDs. Resolve the parent via task tools if needed.
-- Budget or time limits only if provided by the user.
-- Instruction to read this skill's [Luna worker guide](references/luna-worker.md), supervise Claude, and return a compact result to the parent. **Luna must not dispatch another Luna task or re-enter the parent dispatch procedure.**
-
-Pass the worker guide's absolute path, or its contents when the child runs on another host where that path is unavailable. Include concrete instructions in the child prompt; do not assume the child can discover a newly created skill by name.
-
-Creation is asynchronous. If it returns only `clientThreadId`, use app task discovery to resolve the real `threadId`; do not pass the provisional ID to tools requiring a real task ID. Once ready, take one `wait_threads` snapshot with `timeoutMs: 0` to confirm progress. Emit the required `::created-thread{threadId="..."}` or provisional `clientThreadId` directive in the parent response.
-
-Continue useful independent coding in the parent. Avoid repeated polling, blocking waits, or duplicating Luna's supervision. Inspect compact progress when a dependency matters. Do not claim background monitoring unless a real mechanism has been established. Luna's authorized completion message to the parent provides the handoff; no recurring automation is required.
-
-## Integrate the result
-
-Luna returns its actual checkout, changed paths, preview/screenshots, verification evidence, unresolved issues, and Claude session ID. Worktree changes are not automatically present in the parent. Inspect and integrate the scoped diff while preserving other work, then verify affected contracts and flows. A finished design task is not proof of successful integration or user acceptance.
-
-Keep the parent response short: task link, sequencing, work Astra can continue, and later the integrated outcome. Never substitute a native Codex design implementation for the requested Claude implementation without explaining the unavailable dependency.
+Keep the response concise: summarize the sequence, Claude's result, changed paths, evidence, remaining gaps, and integration outcome. Do not substitute a native Codex implementation for the requested Claude work without explaining why Claude Code was unavailable.

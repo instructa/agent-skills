@@ -1,0 +1,7 @@
+interface:
+  display_name: "Lean CI"
+  short_description: "Right-size CI from measured run data."
+  default_prompt: "Use $lean-ci to measure this repository's CI, keep only what CI must prove, and drop over-engineered pipeline changes."
+
+policy:
+  allow_implicit_invocation: true
