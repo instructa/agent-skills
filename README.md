@@ -61,6 +61,12 @@ Cursor, and other Agent Skills clients.
 | [delegate-grok](skills/herdr/delegate-grok/README.md) | Hand a review or bounded implementation to Grok through Herdr. | `★★☆☆☆` · 3 sessions · 47 calls | `npx skills add instructa/agent-skills --skill delegate-grok` |
 | [delegate-sol](skills/herdr/delegate-sol/README.md) | Let Sol review with parallel Terra context or implement a bounded change. | `★☆☆☆☆` · 1 session · 6 calls | `npx skills add instructa/agent-skills --skill delegate-sol` |
 
+### Orchestration
+
+| Skill | Purpose | Usage | Install |
+|---|---|---|---|
+| [sitrep](skills/orchestration/sitrep/README.md) | See what your agents are doing, what is blocked and where you are needed. | New | `npx skills add instructa/agent-skills --skill sitrep` |
+
 ### Security
 
 | Skill | Purpose | Usage | Install |

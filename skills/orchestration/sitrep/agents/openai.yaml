@@ -1,0 +1,7 @@
+interface:
+  display_name: "Sitrep"
+  short_description: "See what your agents are doing and where you are needed."
+  default_prompt: "Use $sitrep to show the current state of my agents, blockers and the decisions waiting on me."
+
+policy:
+  allow_implicit_invocation: false
