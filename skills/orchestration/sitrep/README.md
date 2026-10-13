@@ -7,14 +7,14 @@ gets me a long summary from memory, and the thing that actually needs me is some
 the middle.
 
 `sitrep` (short for situation report) makes the agent collect the state fresh from threads,
-run logs, task trackers and review files, and report it in a fixed order. A short summary
-first, then what is in progress, what is blocked and by whom, which decisions are waiting
-on me with what the reviewers recommend, and what only I can deliver. Anything it cannot
-verify gets a `?`.
+run logs, task trackers and review files, and report it in a fixed template. A two-sentence
+summary, then everything that needs me, then short tables for the product map, the work in
+progress and blockers I can't solve myself. Anything it cannot verify gets a `?`.
 
-Everything that needs my answer gets one running number with the expected reply next to
-it, so I can answer in one line like `1 yes, 2 B, 3 done` and the agent knows which answer
-belongs to which item.
+Each thing that needs me gets its own number and has to make sense without opening a file.
+Decisions spell out the options with their consequences, a recommendation with the reason,
+what the reviewers think, and what happens if I don't answer. So I can reply in one line
+like `1 A, 2 done` and the agent knows which answer belongs to which item.
 
 It also flags results nobody has picked up yet. Those are easy to miss and often the
 real reason work has stalled.
