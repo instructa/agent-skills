@@ -12,8 +12,9 @@ summary, then everything that needs me, then short tables for the product map, t
 progress and blockers I can't solve myself. Anything it cannot verify gets a `?`.
 
 Each thing that needs me gets its own number and has to make sense without opening a file.
-Decisions spell out the options with their consequences, a recommendation with the reason,
-what the reviewers think, and what happens if I don't answer. So I can reply in one line
+Decisions spell out the options with their consequences, and the recommended one always
+comes first as A. Below it is a short reason and who backs it, for example a second model I
+asked for a review, and what happens if I don't answer. So I can reply in one line
 like `1 A, 2 done` and the agent knows which answer belongs to which item.
 
 It also flags results nobody has picked up yet. Those are easy to miss and often the
