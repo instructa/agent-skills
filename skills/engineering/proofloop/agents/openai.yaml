@@ -1,0 +1,4 @@
+interface:
+  display_name: "Proofloop"
+  short_description: "Early live checks and fewer, justified lasting tests"
+  default_prompt: "Use $proofloop to verify real behavior early and keep only tests that protect meaningful failures."

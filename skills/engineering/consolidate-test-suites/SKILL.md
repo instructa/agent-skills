@@ -7,6 +7,10 @@ description: Decide where durable test coverage belongs and clean up temporary t
 
 Purpose: place each invariant in one owning test layer only.
 
+This skill owns test placement and probe cleanup. It does not require new coverage: reusing an
+existing check without editing tests is a valid outcome. Reuse any test-admission decision already
+made in the task; do not add another admission review or repeat completed verification.
+
 Definitions:
 - Invariant: the rule that must stay true.
 - Owning layer: the lowest layer that truly owns and can prove that rule.
@@ -41,12 +45,16 @@ finishing, classify every probe created for the current task as `PROMOTE`,
 
 Choose the first option that fits:
 
-1. Add to an existing test in an existing file in the owning layer.
-2. Add a new test to an existing canonical file in the owning layer.
-3. Create a new file inside the existing canonical suite in the owning layer.
-4. Create a standalone regression-style test only if the Exception Rule passes.
+1. Reuse existing coverage with no test-code change when it already protects the behavior.
+2. Add to an existing test in an existing file in the owning layer.
+3. Add a new test to an existing canonical file in the owning layer.
+4. Create a new file inside the existing canonical suite in the owning layer.
+5. Create a standalone regression-style test only if the Exception Rule passes.
 
 ## Owning Layer Rules
+
+These rules select the home of durable automated coverage. They do not delay an early live check
+or require converting a live observation into a permanent end-to-end test.
 
 Choose unit when:
 - one module owns the rule, and
@@ -115,9 +123,14 @@ After placing coverage:
 4. Delete or simplify weaker duplicates.
 5. Rename tests by behavior and owner, not by ticket number or bug history.
 
-Delete or rewrite pre-existing tests only when the task includes suite
-consolidation and duplicate coverage has been demonstrated. Routine bug-fix work
-may clean up only the probes it created.
+Delete pre-existing tests only when the task includes suite consolidation or explicit requirement
+retirement. Demonstrate redundancy or the retired requirement before removing them. Routine bug-fix
+cleanup is limited to current-task probes.
+
+Name the surviving check for each deletion, or the requirement explicitly retired by the task.
+Assess the entire deletion group: two removed tests cannot serve as each other's protection.
+Unknown coverage and similar filenames do not establish redundancy. Check history before claiming
+a test repeatedly broke refactors; use the existing reviewer rather than adding a retirement review.
 
 ## Verification
 
@@ -129,7 +142,8 @@ Before finishing:
 
 ## Default Output Format
 
-Use this format by default:
+Use this format for a standalone consolidation task. During implementation, include only the
+relevant decisions in the existing task record rather than creating a second report:
 
 Invariant: <rule that failed>
 
@@ -137,7 +151,7 @@ Owning layer: <unit | integration | end-to-end>
 
 Target suite/file: <path or suite name>
 
-Action: <reuse existing test | add to existing suite | create file in canonical suite | keep standalone regression>
+Action: <reuse without changes | extend existing test | add to existing suite | create file in canonical suite | keep standalone regression>
 
 Why this layer owns it: <one short paragraph>
 
