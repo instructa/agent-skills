@@ -30,17 +30,6 @@ tools. It includes no CLI, Node dependency, policy schema or prescribed reviewer
 Codex, Claude Code and Muse need a supported way to load these instructions; each host's automatic
 discovery must be verified separately.
 
-## Apply across projects
-
-Install it where the agent executes, then add the short
-[activation template](assets/AGENTS.md.template.md) to the global instruction source the host actually
-loads. Project templates can carry the same activation when global instructions are unavailable.
-The template activates the skill; the rules stay in `SKILL.md`.
-
-Verify loading once through the start paths you use, including delegated workers and an existing
-and a new project. Installing the skill alone does not require agents to use it. Resolve conflicting
-project rules explicitly, and use a supported reload or context update for running sessions.
-
 ## Related skills
 
 Proofloop owns test selection and the decision to add lasting tests. Split Orchestrator or the
