@@ -1,0 +1,4 @@
+interface:
+  display_name: "Lean Testing"
+  short_description: "Avoid unnecessary tests in agentic coding"
+  default_prompt: "Use $lean-testing to choose sufficient checks and add permanent tests only for meaningful gaps with lasting value."

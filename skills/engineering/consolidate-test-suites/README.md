@@ -11,7 +11,7 @@ Once that rule is clear, the skill finds the lowest test layer that can prove it
 to place the case in an existing suite.
 
 Reusing existing coverage without changing any test is also a valid outcome. This skill owns
-placement and cleanup. [Proofloop](https://github.com/instructa/agent-skills/tree/main/skills/engineering/proofloop) owns test selection and whether
+placement and cleanup. [Lean Testing](https://github.com/instructa/agent-skills/tree/main/skills/engineering/lean-testing) owns test selection and whether
 additional permanent tests provide lasting value. Both work independently; when used
 together they reuse the same decision and task record.
 

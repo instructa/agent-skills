@@ -1,4 +1,0 @@
-interface:
-  display_name: "Proofloop"
-  short_description: "Avoid unnecessary tests in agentic coding"
-  default_prompt: "Use $proofloop to choose sufficient checks and add permanent tests only for meaningful gaps with lasting value."
