@@ -9,4 +9,4 @@ and risky tracked paths with BetterLeaks and Trivy.
 npx skills add instructa/agent-skills --skill secleak-check
 ```
 
-See [SKILL.md](SKILL.md) for the full workflow and available guardrail templates.
+See [SKILL.md](../../../skills/security/secleak-check/SKILL.md) for the full workflow and available guardrail templates.

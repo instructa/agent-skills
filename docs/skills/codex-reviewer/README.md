@@ -43,7 +43,7 @@ Each invocation preserves the prompt, final report, native JSONL/session/usage
 events, stderr, CLI version and exit status in a fresh local output directory.
 No review silently commits, pushes, merges or deploys the project.
 
-See [SKILL.md](SKILL.md) and [the review template](references/review-brief.md).
+See [SKILL.md](../../../skills/claude/codex-reviewer/SKILL.md) and [the review template](../../../skills/claude/codex-reviewer/references/review-brief.md).
 
 ## Relationship to the benchmark
 

@@ -20,4 +20,4 @@ $code-quality Apply the relevant checks while implementing this feature.
 npx skills add instructa/agent-skills --skill code-quality -g
 ```
 
-Remove `-g` for a project-only installation. The [skill instructions](SKILL.md) are self-contained and use the project's existing tooling.
+Remove `-g` for a project-only installation. The [skill instructions](../../../skills/engineering/code-quality/SKILL.md) are self-contained and use the project's existing tooling.

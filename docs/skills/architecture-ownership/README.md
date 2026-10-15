@@ -20,7 +20,7 @@ $architecture-ownership This retry policy currently lives in the API handler, bu
 also affects the worker and CLI. Where should it live?
 ```
 
-The [ownership matrix](references/ownership-matrix.md) contains the layer definitions
+The [ownership matrix](../../../skills/engineering/architecture-ownership/references/ownership-matrix.md) contains the layer definitions
 used by the skill.
 
 ## Install

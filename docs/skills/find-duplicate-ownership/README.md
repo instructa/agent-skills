@@ -21,7 +21,7 @@ $find-duplicate-ownership Audit session restore and persistence. Find every plac
 owns defaults or repairs the stored shape, then name the canonical owner.
 ```
 
-The skill also includes [prompts for broader audits](references/audit-prompts.md).
+The skill also includes [prompts for broader audits](../../../skills/engineering/find-duplicate-ownership/references/audit-prompts.md).
 
 ## Install
 
