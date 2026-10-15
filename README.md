@@ -99,12 +99,6 @@ Cursor, and other Agent Skills clients.
 |---|---|---|---|
 | [shellck](skills/shell/shellck/README.md) | Run ShellCheck on repository scripts. | `★☆☆☆☆` · 1 session | `npx skills add instructa/agent-skills --skill shellck` |
 
-### Release
-
-| Skill | Purpose | Usage | Install |
-|---|---|---|---|
-| [homebrew-publish](skills/release/homebrew-publish/README.md) | Prepare and validate Homebrew releases. | `★☆☆☆☆` · 1 session | `npx skills add instructa/agent-skills --skill homebrew-publish` |
-
 ### Specs
 
 | Skill | Purpose | Usage | Install |
