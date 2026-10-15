@@ -15,12 +15,6 @@ description: Run or install repo security leak checks with BetterLeaks and Trivy
 ## Bundled command
 Resolve `scripts/secleak-check.sh` relative to this `SKILL.md`.
 
-Common installed path:
-
-```bash
-/Users/kregenrek/.agents/skills/secleak-check/scripts/secleak-check.sh
-```
-
 ## Manual fallback
 ```bash
 betterleaks git --no-banner --redact=100 .
