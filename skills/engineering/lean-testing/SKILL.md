@@ -24,7 +24,9 @@ relevant backend. Inspect outcomes, including relevant persistence. Use authoriz
 and data; live means running, not necessarily production. Commands, browser interactions and
 diagnostic probes may remain temporary. Keep useful observations in the existing task record.
 
-Select by exposed risk, not a fixed unit/integration/E2E pyramid. Focused unit tests may check
+Assess protected behavior, not filenames or a fixed unit/integration/E2E pyramid.
+`node:test` driving real CLI processes can be a system check; browser tests mocking meaningful
+boundaries may offer little integration evidence. Focused unit tests may check
 rounding or controlled faults most cheaply; real journeys may expose wiring failures mocks
 miss. Neither live success nor stronger models guarantee untested behavior. Missing live access
 remains an evidence gap; do not manufacture a large replacement mock suite.
@@ -37,14 +39,32 @@ existing brief or change description suffices. No admission form, score or extra
 
 Recurring regressions, important invariants and hard-to-reach faults can justify small durable
 tests. Preserve targeted money, authorization, concurrency and protocol protection; one live
-pass does not replace it.
+pass does not replace it. Critical faults need not have occurred to warrant protection.
+Reproduced bugs warrant useful future detection, not automatic files per bug. Promote temporary
+probes only for clear unique recurring value.
 
 Derive expectations from requirements or contracts. Do not mirror implementation, copy its
 expected-value tables or expand small fixes into speculative test families. Prefer existing
 cases and fixtures. When mocks, helpers and helper tests grow around a small change, first
 reconsider whether an existing command or direct check answers the question.
 
-For ambiguous admission decisions and examples, read [testing.md](references/testing.md).
+Assert externally required properties. Private call order, incidental wording, broad snapshots
+and fixed catalog counts can reject legitimate changes while missing defects. Preserve exact
+contract values, including serialization, security allowlists and financial outputs.
+
+| Situation | Decision |
+| --- | --- |
+| One-time save/reload uncertainty | Exercise real save/reload; inspect stored outcomes; retain observation, not automatically probe |
+| Rare race, retry or partial-write fault impractical live | Controlled focused invariant test |
+| Product contract intentionally changed | Update affected expectation from contract; preserve unrelated assertions |
+
+For failed checks, establish whether expectations match the agreed contract and whether the
+fault belongs to product, test or environment. Unexplained reds remain unresolved. Never alter
+correct product behavior for invented expectations or weaken safeguards or contract values
+merely to pass.
+
+Small changes may need only existing checks and a temporary live probe; small high-risk changes
+may need several focused cases. Size alone decides neither. No mandatory mutation campaign.
 Coverage, test counts and test-to-product line ratios are signals, never generation targets
 or deletion quotas. Reassess machinery as tools and models change using observed task results,
 not assumed model accuracy. Useful existing tests need no ceremonial re-proving. Broad suite
