@@ -10,7 +10,7 @@ often preferable outcome.** Agents can generate tests cheaply; execution, diagno
 and maintenance still cost time. Do not treat test production as proof of progress.
 
 This skill owns test selection and permanent-test admission. The existing workflow owns
-roles, review timing, reruns and acceptance; Farcall or another transport owns delegation.
+roles, delegation, review timing, reruns and acceptance.
 Use this skill with a single agent or an orchestrator. Preserve explicit user requirements
 and required project checks; add no reviewer, approval stage or runner.
 
