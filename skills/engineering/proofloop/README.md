@@ -2,18 +2,18 @@
 
 # Proofloop
 
-Agents can spend longer building tests and repairing verification machinery than exercising the
-feature. Proofloop brings the first real user path forward and makes new permanent tests a deliberate
-choice: name the meaningful failure and the gap in existing checks before adding coverage.
+Proofloop prevents unnecessary test generation in agentic coding. It chooses the smallest
+sufficient check for a concrete risk and treats **zero new tests as a valid outcome**.
+Generating tests is cheap; running, diagnosing, reviewing and maintaining them still costs time.
 
-Use it while implementing features, fixing bugs or changing tests. It keeps exploratory checks
-temporary, distinguishes product failures from test or environment faults, and bounds repeated
-attempts. Tests for money, authorization, concurrency and hard-to-reach faults still matter when
-the live path does not adequately expose them. Required project checks remain required.
+Reuse existing coverage unchanged when it is sufficient. Use a direct runtime check or temporary
+probe for one-time uncertainty. Add permanent tests when they close a meaningful gap and provide
+lasting regression protection. Money, authorization, concurrency and controlled faults still
+warrant focused tests where needed. Required project checks remain required.
 
 ```text
-$proofloop Fix this save bug. Exercise save and reload early, reuse the existing checks,
-and add a permanent test only for a concrete failure they miss.
+$proofloop Fix this save bug. Reuse existing coverage, check save and reload in the running
+application, and add lasting tests only if they protect an otherwise uncovered recurring risk.
 ```
 
 ## Install
@@ -43,7 +43,8 @@ project rules explicitly, and use a supported reload or context update for runni
 
 ## Related skills
 
-Proofloop owns early live verification, the decision to add lasting tests and bounded reruns.
+Proofloop owns test selection and the decision to add lasting tests. Split Orchestrator or the
+existing workflow owns roles, review timing, reruns and acceptance. Farcall owns worker transport.
 [Consolidate Test Suites](https://github.com/instructa/agent-skills/tree/main/skills/engineering/consolidate-test-suites) owns placement, deduplication and
 probe cleanup when that work is needed. They are independently installable. If both apply, reuse
 the same test decision and task record; do not create another review or report.
@@ -52,3 +53,17 @@ The former bundled command runner remains in
 [codex-proofloop](https://github.com/regenrek/codex-proofloop). The skill does not depend on it.
 Structural validation does not establish a delivery-speed improvement or unchanged defect detection;
 evaluate those through actual tasks and their existing records.
+
+## Research basis
+
+The approach reflects research reviewed on **15 October 2026**, not a claim that current models
+make unit tests obsolete or achieve a universal correctness rate.
+
+- [Anthropic, March 2026](https://www.anthropic.com/engineering/harness-design-long-running-apps): stronger models made some evaluator scaffolding unnecessary within their reliable capabilities; actual application use still exposed defects.
+- [Testing with AI Agents, March 2026](https://arxiv.org/abs/2603.13724): generated tests contributed coverage comparable to human tests; coverage alone does not establish maintenance value.
+- [Beyond Test Presence, July 2026](https://arxiv.org/abs/2607.12068): static analysis found broader boundary checks alongside more potential flakiness in agent tests, not measured runtime flake rates.
+- [OpenAI, February 2026](https://openai.com/index/harness-engineering/): an agent-built product used fewer blocking gates and follow-up treatment of some flakes; this is context-specific experience, not permission to ignore failures.
+
+Our policy inference is to require meaningful additional protection before retaining more test
+code. These sources do not establish a universal optimal test count or validate this skill's
+impact on delivery speed. Assess that impact through real tasks and their existing evidence.

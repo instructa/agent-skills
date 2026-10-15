@@ -33,7 +33,7 @@ Cursor, and other Agent Skills clients.
 |---|---|---|---|
 | [hard-cut](skills/engineering/hard-cut/README.md) | Replace legacy paths with one canonical implementation. | `★★★★★` · 408 sessions | `npx skills add instructa/agent-skills --skill hard-cut` |
 | [consolidate-test-suites](skills/engineering/consolidate-test-suites/README.md) | Put regression coverage in the owning test layer. | `★★★★★` · 331 sessions | `npx skills add instructa/agent-skills --skill consolidate-test-suites` |
-| [proofloop](skills/engineering/proofloop/README.md) | Verify real behavior early and justify new permanent tests. | New | `npx skills add instructa/agent-skills --skill proofloop` |
+| [proofloop](skills/engineering/proofloop/README.md) | Avoid unnecessary tests; choose sufficient checks and justify lasting coverage. | New | `npx skills add instructa/agent-skills --skill proofloop` |
 | [root-cause-finder](skills/engineering/root-cause-finder/README.md) | Trace failures to their first unintended cause. | `★★★★★` · 159 sessions | `npx skills add instructa/agent-skills --skill root-cause-finder` |
 | [architecture-ownership](skills/engineering/architecture-ownership/README.md) | Find the right owner for code and behavior. | `★★★★★` · 142 sessions | `npx skills add instructa/agent-skills --skill architecture-ownership` |
 | [find-duplicate-ownership](skills/engineering/find-duplicate-ownership/README.md) | Find competing sources of truth. | `★★★★☆` · 77 sessions | `npx skills add instructa/agent-skills --skill find-duplicate-ownership` |

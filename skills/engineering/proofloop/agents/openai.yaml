@@ -1,4 +1,4 @@
 interface:
   display_name: "Proofloop"
-  short_description: "Early live checks and fewer, justified lasting tests"
-  default_prompt: "Use $proofloop to verify real behavior early and keep only tests that protect meaningful failures."
+  short_description: "Avoid unnecessary tests in agentic coding"
+  default_prompt: "Use $proofloop to choose sufficient checks and add permanent tests only for meaningful gaps with lasting value."

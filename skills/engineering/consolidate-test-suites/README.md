@@ -11,8 +11,8 @@ Once that rule is clear, the skill finds the lowest test layer that can prove it
 to place the case in an existing suite.
 
 Reusing existing coverage without changing any test is also a valid outcome. This skill owns
-placement and cleanup. [Proofloop](https://github.com/instructa/agent-skills/tree/main/skills/engineering/proofloop) owns early live verification, whether
-additional permanent tests are needed, and bounded reruns. Both work independently; when used
+placement and cleanup. [Proofloop](https://github.com/instructa/agent-skills/tree/main/skills/engineering/proofloop) owns test selection and whether
+additional permanent tests provide lasting value. Both work independently; when used
 together they reuse the same decision and task record.
 
 Temporary tests and diagnostics are often useful while investigating a failure, but they

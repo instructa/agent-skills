@@ -1,35 +1,33 @@
-# Decide whether a permanent test is needed
+# Choosing sufficient evidence
 
-Assess assertions, not file extensions. A `node:test` file driving real CLI processes or restarting
-a Worker is a system check. A browser test mocking every meaningful boundary may add little
-confidence. Prefer the least expensive check that exposes the actual risk.
+Assess protected behavior, not file extensions. A `node:test` case driving real CLI processes
+can be a system check; a browser test mocking every meaningful boundary may offer little
+integration evidence. Choose the least costly method that exposes the named risk, including
+execution, diagnosis and future maintenance rather than generation cost alone.
 
-## Admission
-
-Before a permanent addition, explain the failure it catches and the gap in existing checks. Reuse
-or extend an existing case before building another fixture or suite. A reproduced bug or a concrete
-high-risk case can justify a focused regression test; no mutation campaign or new reviewer is needed.
-
-| Situation | Action |
+| Situation | Decision |
 | --- | --- |
-| Temporary probe used to diagnose a failure | Keep the relevant observation in the task record; do not promote the probe automatically |
-| Existing check already catches the same failure | Extend or reuse it; avoid a second assertion of the same outcome |
-| Real journey misses a relevant state combination or controlled fault | Keep the smallest focused test that exercises that gap |
-| Product behavior intentionally changed | Update the affected expectation to the agreed contract and run that check |
+| Existing check catches the relevant failure | Run or reuse it unchanged; zero new tests |
+| One-time uncertainty about save/reload behavior | Exercise the real save and reload path and inspect stored outcomes; keep the observation, not automatically the probe |
+| Existing journey misses a recurring rounding or authorization regression | Add the smallest focused case to an existing suite |
+| Rare race, retry or partial-write fault is impractical to reproduce live | Use a controlled focused test for the invariant |
+| Product contract intentionally changed | Update the affected expectation from that contract; preserve unrelated assertions |
+| Many mocks and helper tests are needed for a minor change | Reconsider the test boundary and reuse existing tooling before expanding infrastructure |
 
-Look for copied lookup tables, incidental text, private call ordering, broad snapshots and fixed
-catalog counts that fail on legitimate additions before reaching their useful assertions. Prefer
-the required observable property. Exact values remain appropriate when they are the product
-contract, such as a protocol representation or security allowlist; do not relax them by category.
+A reproduced bug supports a regression test when it supplies useful future detection, not
+an automatic new file per bug. A critical fault need not have occurred already to justify
+protection. Temporary probes become permanent only when their unique recurring value is clear.
 
-Tests of a newly invented test helper can create more maintenance than the feature. First ask
-whether an existing command or direct observation removes the need for the helper. If a verifier
-protects a real boundary, test it locally before an expensive run; do not grow a framework around it.
+Copied lookup tables, private call order, incidental wording, broad snapshots and fixed catalog
+counts can fail on legitimate changes while missing the real defect. Assert the externally
+required property. Exact values remain appropriate for actual contracts such as serialization,
+security allowlists or financial outputs; do not weaken them merely to make a test pass.
 
-## Scope
+When a check fails, establish whether the expectation comes from the agreed contract and
+whether the failure belongs to the product, test or environment. An unexplained red result
+is unresolved. Do not repair correct product behavior to satisfy an invented expectation,
+or relax a safeguard to obtain green. Correction rounds remain the existing workflow's job.
 
-This decision adds no separate test-placement or cleanup review. Reuse the project's normal suite
-and cleanup workflow when test changes are justified. Existing useful tests need no ceremonial
-re-proving merely to stay. Test counts, coverage percentages and line ratios are diagnostic
-signals, never admission or deletion quotas. A successful live check alone does not justify deleting
-existing tests; update expectations only for the agreed behavior change and preserve unrelated work.
+A small change may legitimately finish with existing checks and one temporary live probe.
+A small high-risk change may need several focused cases. Size alone decides neither outcome.
+No fixed test quota, mandatory mutation campaign or extra reviewer is implied.
