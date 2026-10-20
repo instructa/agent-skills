@@ -46,7 +46,7 @@ For Codex hosts supporting it, `[features.code_mode].direct_only_tool_namespaces
 
 If no verified completion mechanism is available, state that before dispatch. Do not silently replace it with a polling loop or claim zero polling overhead. The shell example remains a launch fallback for an explicitly accepted polling-based workflow; obey the current host's waiting limits and preserve the resulting usage. A prompt cannot change tool transport behavior.
 
-Before labeling a setup polling-free, test a slow deterministic worker across the normal yield interval and inspect actual parent response IDs. Test timeout/cancellation recovery without launching duplicate workers. Configuration persistence is not runtime proof. On this machine, the benchmark protocol and research are at `/Users/devbook/projects/marlies-workflow-benchmark-kit/protocols/event-driven-v1/`.
+Before labeling a setup polling-free, test a slow deterministic worker across the normal yield interval and inspect actual parent response IDs. Test timeout/cancellation recovery without launching duplicate workers. Configuration persistence is not runtime proof.
 
 When Claude completes, inspect the exit status, result subtype, errors/permission denials, actual filesystem changes, and any session ID or usage metadata the runtime provides. Report only measured usage fields. For focused corrections, resume the same Claude session with its returned session ID and a new brief/result file; do not start duplicate work while the original process is alive. Stop after one focused correction fails with the same issue and explain the blocker.
 
