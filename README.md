@@ -48,20 +48,6 @@ Cursor, and other Agent Skills clients.
 |---|---|---|---|
 | [claude-designer](docs/skills/claude-designer/README.md) | Let Astra call Claude Code directly for UI design, then review and integrate the result. | New | `npx skills add instructa/agent-skills --skill claude-designer` |
 
-### Claude Code
-
-| Skill | Purpose | Usage | Install |
-|---|---|---|---|
-| [codex-reviewer](docs/skills/codex-reviewer/README.md) | Have Astra review a change while Claude implements, tests and corrects it. | New | `npx skills add instructa/agent-skills --skill codex-reviewer -g -a claude-code` |
-
-### Herdr
-
-| Skill | Purpose | Usage | Install |
-|---|---|---|---|
-| [delegate-fable](docs/skills/delegate-fable/README.md) | Hand a review or bounded implementation to Fable through Herdr. | `★★★☆☆` · 11 sessions · 130 calls | `npx skills add instructa/agent-skills --skill delegate-fable` |
-| [delegate-grok](docs/skills/delegate-grok/README.md) | Hand a review or bounded implementation to Grok through Herdr. | `★★☆☆☆` · 3 sessions · 47 calls | `npx skills add instructa/agent-skills --skill delegate-grok` |
-| [delegate-sol](docs/skills/delegate-sol/README.md) | Let Sol review with parallel Terra context or implement a bounded change. | `★☆☆☆☆` · 1 session · 6 calls | `npx skills add instructa/agent-skills --skill delegate-sol` |
-
 ### Orchestration
 
 | Skill | Purpose | Usage | Install |
@@ -120,8 +106,6 @@ Cursor, and other Agent Skills clients.
 ### Usage legend
 
 `★★★★★` 100+ sessions · `★★★★☆` 25–99 · `★★★☆☆` 10–24 · `★★☆☆☆` 2–9 · `★☆☆☆☆` 0–1
-
-Herdr skills also show direct calls because one session can delegate several tasks.
 
 ## Principles
 
