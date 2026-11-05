@@ -117,6 +117,6 @@ Cursor, and other Agent Skills clients.
 
 ## Links
 
-- X/Twitter: [@kregenrek](https://x.com/kregenrek)
+- X/Twitter: [@kevinkern](https://x.com/kevinkern)
 - Bluesky: [@kevinkern.dev](https://bsky.app/profile/kevinkern.dev)
 - [Instructa](https://www.instructa.ai)
